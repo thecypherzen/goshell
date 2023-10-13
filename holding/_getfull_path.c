@@ -6,7 +6,7 @@
  */  /* ls  /usr/home/utils/bin/bash/bin/bash/ls */
 char *_getfull_path(char *rel_path, char *cwd, int slashed)
 {
-	char *temp = NULL, *full_path = NULL;
+	char *temp = NULL, *full_path = NULL, *cwdcpy;
 	size_t i = 0, j = 0;
 	
 	if (slashed)
@@ -30,7 +30,7 @@ char *_getfull_path(char *rel_path, char *cwd, int slashed)
 	}
 	else /* tokenise PATH and find command */
 	{
-		temp = strtok(cwd, ":");
+		cwdcpy = cwd; temp = strtok(cwdcpy, ":");
 		printf("PATH: %s\n", cwd);
 		while (temp) /* /usr/local/sbin */
 		{
