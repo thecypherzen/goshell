@@ -35,7 +35,7 @@ char *_getfull_path(char *rel_path, char *cwd, int slashed)
 		while (temp) /* /usr/local/sbin */
 		{
 			full_path = malloc((strlen(temp)) + 
-				strlen(rel_path) + 1);
+				strlen(rel_path) + 2);
 			if (!full_path)
 				return (NULL);
 			while(temp[i])
@@ -44,6 +44,7 @@ char *_getfull_path(char *rel_path, char *cwd, int slashed)
 				printf("fpath[%lu]: %c | temp[%lu]: %c\n",
 					i, full_path[i], i, temp[i]);
 			}
+			full_path[i++] = '/';
 			while(rel_path[j])
 			{
 				full_path[i] = rel_path[j], i++, j++;
