@@ -1,0 +1,34 @@
+#include "gosh.h"
+
+char  *get_pathname(char **agv)
+{
+	printf("in getpathname func\n");
+	char c = agv[0][0];
+	char *abs_path, *temp;
+
+	priintf("in get_pathname: c = %c, agv[0] = %s\n", c, agv[0]);
+	if (c < 65 || (c > 90 && c < 97) || c > 122)
+	{
+		printf("passing [%s] to expander\n", agv[0])
+		temp = _path_expandr(agv[0]);
+		if (!temp)
+			printf("Some error occured in expansion\n");
+		else
+		{
+			abs_path = temp;
+			printf("Path to: %s\n", abs_path);
+		}
+	}
+	else
+	{
+		abs_path = "constructing path for agv[0]";
+		/* tokenise path var, append agv[0] && check if 
+  		exists */
+	}
+	return (abs_path);
+}
+
+/*
+ * { "ls", "-l", "-a", NULL }
+ * { "./bin/ls" "-l", "-a", NULL }
+ */
