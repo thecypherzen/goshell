@@ -6,7 +6,7 @@
  */  /* ls  /usr/home/utils/bin/bash/bin/bash/ls */
 char *_getfull_path(char *rel_path, char *cwd, int slashed)
 {
-	char *temp = NULL, *full_path = NULL, *cwdcpy;
+	char *temp = NULL, *full_path = NULL, *cwd_cpy;
 	size_t i = 0, j = 0;
 	
 	if (slashed)
@@ -30,10 +30,13 @@ char *_getfull_path(char *rel_path, char *cwd, int slashed)
 	}
 	else /* tokenise PATH and find command */
 	{
-		cwdcpy = cwd; temp = strtok(cwdcpy, ":");
+		cwd_cpy = strdup(cwd);
+		temp = strtok(cwd_cpy, ":");
 		printf("PATH: %s\n", cwd);
 		while (temp) /* /usr/local/sbin */
 		{
+			printf("strlen(temp): %lu | strlen(rel_path): %lu\n",
+				strlen(temp), strlen(rel_path));
 			full_path = malloc((strlen(temp)) + 
 				strlen(rel_path) + 2);
 			if (!full_path)
@@ -41,25 +44,31 @@ char *_getfull_path(char *rel_path, char *cwd, int slashed)
 			while(temp[i])
 			{
 				full_path[i] = temp[i], i++;
-				printf("fpath[%lu]: %c | temp[%lu]: %c\n",
-					i, full_path[i], i, temp[i]);
+				/*printf("fpath[%lu]: %c | temp[%lu]: %c\n",
+					i, full_path[i], i, temp[i]);*/
 			}
 			full_path[i++] = '/';
 			while(rel_path[j])
 			{
 				full_path[i] = rel_path[j], i++, j++;
-				printf("fpath[%lu]: %c | rel_path[%lu]: %c\n",
-					i, full_path[i], j, rel_path[j]);
+				/*printf("fpath[%lu]: %c | rel_path[%lu]: %c\n",
+					i, full_path[i], j, rel_path[j]); */
 			}
 			full_path[i] = '\0';
-			printf("INGFP FUNC: fullpath: %s\n", full_path);
+			/*printf("INGFP FUNC: fullpath: %s\n", full_path);*/
 			if (access(full_path, F_OK | X_OK) == 0)
+			{
 				return (full_path);
-			temp = strtok(NULL, ":");
-			printf("next temp: %s\n", temp);
-			i = j = 0;
-			free(full_path);
+			}
+			else
+			{
+				/*printf("before next: %s\n", temp);*/
+				temp = strtok(NULL, ":");
+				/*printf("next temp: %s\n", temp);*/
+				i = j = 0;
+				free(full_path);
+			}
 		}
-		return (NULL);
+		return (full_path);
 	}
 }
