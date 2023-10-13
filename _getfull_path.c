@@ -32,21 +32,30 @@ char *_getfull_path(char *rel_path, char *cwd, int slashed)
 	{
 		temp = strtok(cwd, ":");
 		printf("PATH: %s\n", cwd);
-		while (temp)
+		while (temp) /* /usr/local/sbin */
 		{
 			full_path = malloc((strlen(temp)) + 
 				strlen(rel_path) + 1);
 			if (!full_path)
 				return (NULL);
 			while(temp[i])
+			{
 				full_path[i] = temp[i], i++;
+				printf("fpath[%lu]: %c | temp[%lu]: %c\n",
+					i, full_path[i], i, temp[i]);
+			}
 			while(rel_path[j])
+			{
 				full_path[i] = rel_path[j], i++, j++;
-			full_path[j] = '\0';
+				printf("fpath[%lu]: %c | rel_path[%lu]: %c\n",
+					i, full_path[i], j, rel_path[j]);
+			}
+			full_path[i] = '\0';
 			printf("INGFP FUNC: fullpath: %s\n", full_path);
 			if (access(full_path, F_OK | X_OK) == 0)
 				return (full_path);
 			temp = strtok(NULL, ":");
+			printf("next temp: %s\n", temp);
 			i = j = 0;
 			free(full_path);
 		}
