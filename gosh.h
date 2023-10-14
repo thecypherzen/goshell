@@ -43,5 +43,7 @@ char *_getparent_path(char *cwd);
 int gcmd_fork(char *full_path, char **agv);
 int _chdir_helper(char *full_path, char *cwd);
 int ch_dir(char *dest);
+int _logical_ops(char *comd, char **currcmd);
+int logical_exec(char *comd);
 
 #endif
