@@ -22,7 +22,6 @@ char *_getparent_path(char *cwd)
 			parent[j] = cwd[j];
 		parent[j] = '\0';
 		printf("[in_getparent_path func:] freing cwd...");
-		free(cwd);
 		printf("=> SUCCESSFUL\n");
 	}
 	return (parent);
