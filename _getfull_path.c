@@ -6,29 +6,23 @@
  * @slashed: 1 if to tokenise by slashes(/) or 0 if by (:)
  * Return: pointer to parent string on success.
  *         NULL if access fails or abs_path is NULL. cd goshell
- */ /* PWD=/this/that */
+ */ /*cd .. */
 char *_getfull_path(char *rel_path, char *cwd, int slashed)
 {
 	char *temp = NULL, *full_path = NULL, *cwd_cpy;
 	size_t i = 0, j = 0, len_rel = rel_path ? strlen(rel_path) : 0, 
-	len_cw = cwd ? strlen(cwd) : 0, found = 0;
+	len_cw = cwd ? strlen(cwd) : 0;
 
 	printf("...inside getfullpath func...\n");
 	if (slashed) /* ../enters here if rel paths are provided */
-	{ /* cd ../ */
+	{ /* cd .. */
 		if (*rel_path == '/')
 			full_path = rel_path;
 		else
 		{
 			printf("inside slashed func: about to malloc\n");
 			while (rel_path[i] != '/' && rel_path[i])
-			{
 				i++;
-				if (rel_path[i] == '/')
-					found = 1;
-			}
-			if (i == len_rel)
-				i = 0;
 			printf("rel_path len: %lu | cwd_len: %lu\n",
 				rel_path ? strlen(rel_path) : 99,
 				cwd ? strlen(cwd): 101);
@@ -41,12 +35,9 @@ char *_getfull_path(char *rel_path, char *cwd, int slashed)
 			while (cwd[j])
 				full_path[j] = cwd[j], j++;
 			full_path[j++] = '/';
-			if (found)
-				i++;
 			while(rel_path[i])
 				full_path[j] = rel_path[i], i++, j++;
 			full_path[j] = '\0';
-			
 		}
 		printf("IN getfull_path func:\n");
 		printf("full_path => %s\n", full_path ? full_path : "null");

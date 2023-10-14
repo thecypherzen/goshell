@@ -7,7 +7,7 @@
 
 int ch_dir(char *dest)
 {
-	char *cwd = getcwd(NULL, 0), *full_path = NULL, *parent,
+	char *cwd = getcwd(NULL, 0), *full_path = NULL,
 	rel_ids[] = {'.', '/', '~', ' ', '-', '\0'},
 	c = dest ? *dest : '~';
 	int i = 0;
@@ -31,16 +31,8 @@ int ch_dir(char *dest)
 			(dest[1] == '.' && (dest[2] == '\0' || 
 			dest[2] == ' ')))
 		{
-			if ((dest[1] == '.' && (dest[2] == '\0' || 
-					dest[2] == ' ')))
-			{
-				printf("resetting dest to ../\n");
-				dest[2] = '/', dest[3] = '\0';
-			}
 			printf("new dest : %s\n", dest);
-			parent = _getparent_path(getenv("PWD"));
-			printf("\nin CHDIR: parent => %s\n", parent);
-			full_path = _getfull_path(dest, parent, 1);
+			full_path = _getparent_path(getenv("PWD"));
 			return (_chdir_helper(full_path, cwd));
 		}
 		if (dest[1] == '/' || dest[1] == '\0' ||

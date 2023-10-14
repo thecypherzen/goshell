@@ -11,7 +11,7 @@ char *_getparent_path(char *cwd)
 	if (cwd)
 	{
 		i = strlen(cwd) - 1;
-
+	
 		/* find the last occurence of */
 		while (cwd[i] != '/')
 			i--;
@@ -21,6 +21,9 @@ char *_getparent_path(char *cwd)
 		for (j = 0; j < i; j++)
 			parent[j] = cwd[j];
 		parent[j] = '\0';
+		printf("[in_getparent_path func:] freing cwd...");
+		free(cwd);
+		printf("=> SUCCESSFUL\n");
 	}
 	return (parent);
 }
