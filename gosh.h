@@ -40,5 +40,8 @@ char  *get_gcmdpath(char **agv);
 char *_gcmdpath_expandr(char *rel_path);
 char *_getfull_path(char *rel_path, char *cwd, int slashed);
 char *_getparent_path(char *cwd);
+int gcmd_fork(char *full_path, char **agv);
+int _chdir_helper(char *full_path, char *cwd);
+int ch_dir(char *dest);
 
 #endif

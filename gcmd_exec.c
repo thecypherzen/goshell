@@ -7,8 +7,9 @@
 int gcmd_exec(char **agv)
 {
 	char *s_cmds[] = { "exit", "env", "setenv",
-				"unsetenv", NULL}, *path_name;
-	int j = 0, i = 0, match = 0;
+				"unsetenv", "cd", NULL}, 
+	*full_path;
+	int j = 0, i = 0, match = 0, retval;
 	do
 	{
 		j = 0;
@@ -22,7 +23,7 @@ int gcmd_exec(char **agv)
 		}
 		if (match)
 			break;
-	}while (++i < 1);
+	} while (++i < 1);
 	if (match)
 	{
 		switch (j)
@@ -38,6 +39,10 @@ int gcmd_exec(char **agv)
 			case 4:
 				return (_unsetenv_exec(agv));
 				break;
+			case 5: 
+				printf("gcmd_exec: agv[1]: %s\n",
+					agv[1]);
+				return (ch_dir(agv[1]));
 			default:
 				return (-1);
 				break;
@@ -46,13 +51,18 @@ int gcmd_exec(char **agv)
 	else
 	{
 		/* Ex ecute other commands */
-		printf("Preparing to fork\n");
-		path_name = get_gcmdpath(agv);
-		if (!path_name)
-			printf("gcmd_exec: PATH_NAME = null\n");
-		else
-			printf("IN gcmd_exec: PATH_NAME = %s\n", 
-				path_name);
+		full_path = get_gcmdpath(agv);
+		if (!full_path)
+		{
+			perror(agv[0]);
+			return (-1);
+		}
+		else /* proceed to forking */
+		{
+			retval = gcmd_fork(full_path, agv);
+			if (retval < 0)
+				return (-1);
+		}
 	}
 	return (0);
 }

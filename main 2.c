@@ -69,26 +69,24 @@ char **ac;
           av[ac] = NULL;
 
           char *path = getenv("PATH");
-          printf("PATH IS: %s\n", path);
           if (path != NULL) {
             directory = strtok(path, ":");
             while (directory != NULL) {
-              printf("directory is: %s\n", directory);
               pathstep = pathname(av[0], directory);
-              printf("pathstep is %s\n", pathstep);
               if (pathstep != NULL) {
-                printf("pathstep22 is %s\n", pathstep);
                 gpid = fork();
                 if (gpid == -1) {
                   perror("Fork error");
                   return (-1);
                 }
-                if (gpid == 0) {
-                  if (execve(pathstep, av, NULL) == -1) {
+                if (gpid == 0) { /* /bin/ls -l ./ */
+                  if (execve(pathstep, av, NULL) == -1) 
+		  {
                     perror(pathstep);
                     return (-1);
                   }
-                } else {
+                } else 
+		{
                   wait(NULL);
                 }
                 free(pathstep);

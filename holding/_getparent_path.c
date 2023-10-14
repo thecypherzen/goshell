@@ -10,8 +10,6 @@ char *_getparent_path(char *cwd)
 	char *parent = NULL;
 	if (cwd)
 	{
-		printf("\nIN GPP func\n");
-		printf("cwd = %s\n", cwd);
 		i = strlen(cwd) - 1;
 	
 		/* find the last occurence of */
@@ -23,7 +21,9 @@ char *_getparent_path(char *cwd)
 		for (j = 0; j < i; j++)
 			parent[j] = cwd[j];
 		parent[j] = '\0';
+		printf("[in_getparent_path func:] freing cwd...");
+		free(cwd);
+		printf("=> SUCCESSFUL\n");
 	}
-	printf("PARENT PATH: %s\n", parent ? parent : "null");
 	return (parent);
 }

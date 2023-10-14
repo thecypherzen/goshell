@@ -1,6 +1,7 @@
 #include "gosh.h"
 /*
- * get_args - tokenises the cmdln and passes to the cmd executor function
+ * get_args - tokenises the cmdln and passes to the cmd 
+ * executor function
  * - create a vector and save the tokens in it
  * - the delimiter used for tokenisation is " "
  * @gcmdln: the command line entered by the user
@@ -66,7 +67,11 @@ int main(void)
 			{
 				i = gcmd_exec(agv);
 				if (i < 0)
-					perror("some cmd failed\n");
+				{
+					perror(agv[0]);
+					printf("Execution of %s Failed\n",
+						agv[0]);
+				}
 			}
 			
 		}
