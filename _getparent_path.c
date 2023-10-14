@@ -10,12 +10,15 @@ char *_getparent_path(char *cwd)
 	char *parent = NULL;
 	if (cwd)
 	{
-		i = strlen(cwd) - 1;
+		i = strlen(cwd) - 1; /* this = malloc(0) */
 	
-		/* find the last occurence of */
+		/* find the last occurence of /media */
 		while (cwd[i] != '/')
 			i--;
-		parent = malloc(i);
+		if (!i)
+			parent = malloc(2), i = 1;
+		else
+			parent = malloc(i);
 		if (!parent)
 			return (NULL);
 		for (j = 0; j < i; j++)
