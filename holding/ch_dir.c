@@ -35,7 +35,7 @@ int ch_dir(char *dest)
 					dest[2] == ' ')))
 			{
 				printf("resetting dest to ../\n");
-				dest = "../";
+				dest[2] = '/', dest[3] = '\0';
 			}
 			printf("new dest : %s\n", dest);
 			parent = _getparent_path(getenv("PWD"));
