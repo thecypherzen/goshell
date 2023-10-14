@@ -15,7 +15,7 @@ char *_getfull_path(char *rel_path, char *cwd, int slashed)
 
 	printf("...inside getfullpath func...\n");
 	if (slashed) /* ../enters here if rel paths are provided */
-	{ /* cd ../home */
+	{ /* cd ../ */
 		if (*rel_path == '/')
 			full_path = rel_path;
 		else

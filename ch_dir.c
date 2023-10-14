@@ -31,6 +31,13 @@ int ch_dir(char *dest)
 			(dest[1] == '.' && (dest[2] == '\0' || 
 			dest[2] == ' ')))
 		{
+			if ((dest[1] == '.' && (dest[2] == '\0' || 
+					dest[2] == ' ')))
+			{
+				printf("resetting dest to ../\n");
+				dest = "../";
+			}
+			printf("new dest : %s\n", dest);
 			parent = _getparent_path(getenv("PWD"));
 			printf("\nin CHDIR: parent => %s\n", parent);
 			full_path = _getfull_path(dest, parent, 1);
