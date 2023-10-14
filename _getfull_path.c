@@ -38,11 +38,12 @@ char *_getfull_path(char *rel_path, char *cwd, int slashed)
 				printf("malloc failed\n");
 				return (NULL);
 			}
-			while (cwd[j])
+			while (cwd[j]) /* ../bin/ls   /  */
 				full_path[j] = cwd[j], j++;
-			full_path[j++] = '/';
 			if (found)
 				i++;
+			if (len_cw != 1)
+				full_path[j++] = '/';
 			while(rel_path[i])
 				full_path[j] = rel_path[i], i++, j++;
 			full_path[j] = '\0';

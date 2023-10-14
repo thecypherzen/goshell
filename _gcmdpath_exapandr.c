@@ -22,7 +22,7 @@ char *_gcmdpath_expandr(char *rel_path)
 		{
 			temp = _getparent_path(getenv("PWD"));
 			if (!temp)
-				return (NULL);
+				return (NULL); /* ../bin/ls  / */
 			return (abs_path = _getfull_path(rel_path, 
 				temp, 1));
 		}
