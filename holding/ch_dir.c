@@ -19,6 +19,7 @@ int ch_dir(char *dest)
 		full_path = _getfull_path(dest, cwd, 1);
 		return (_chdir_helper(full_path, cwd));
 	}
+
 	while (rel_ids[i])
 	{
 		if (c == rel_ids[i])
@@ -26,12 +27,16 @@ int ch_dir(char *dest)
 		i++;
 	}
 	if (!i)
-	{ 
+	{
+		printf("expanding for parent\n");
 		if ((dest[1] == '.' && dest[2] == '/') ||
 			(dest[1] == '.' && (dest[2] == '\0' || 
 			dest[2] == ' ')))
 		{
+			printf("Conditions for parent met\n");
 			parent = _getparent_path(getenv("PWD"));
+			printf("parent: -> %s\n", parent ? parent :
+			       "(NULL)");
 			printf("\nin CHDIR: parent => %s\n", parent);
 			full_path = _getfull_path(dest, parent, 1);
 			return (_chdir_helper(full_path, cwd));
