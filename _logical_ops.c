@@ -1,13 +1,12 @@
 #include "gosh.h"
 
 int _logical_ops(char *comd, char **currcmd)
-   {
-	   char *command = strdup(comd);
-	   char *token = strtok(command, " "),
-	   *prev_command = NULL, **cmdlinev, *temp; 
-	   int ret = 0;
-	   
-	   printf("INSIDE logical ops FUNC\n");
+{
+	char *command = s_dup(comd), *token,
+	*prev_command = NULL, **cmdlinev, tokensv, *temp; 
+	int ret = 0, n = 0;
+
+	token = strtok(command, " ");
         while (token != NULL)
 	{
 		printf("curr token: %s\n", token);
@@ -37,7 +36,7 @@ int _logical_ops(char *comd, char **currcmd)
 					printf("next cmd: %s\n", prev_command);
 				}
 			}
-                       /* prev_command = NULL;*/
+                        prev_command = NULL;
                 }
                 else
                 {

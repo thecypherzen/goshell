@@ -54,5 +54,6 @@ char *comment_handler(char *gcmd);
 int echo_echo(char **gcmd);
 int cat_cat(char **agv);
 int touch_touch(char **agv);
+char *s_dup(char *str);
 
 #endif

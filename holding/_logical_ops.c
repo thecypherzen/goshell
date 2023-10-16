@@ -2,11 +2,28 @@
 
 int _logical_ops(char *comd, char **currcmd)
    {
-	   char *command = strdup(comd);
-	   char *token = strtok(command, " "),
-	   *prev_command = NULL, **cmdlinev, *temp; 
-	   int ret = 0;
-	   
+	   char *command = s_dup(comd), *token,
+	   *prev_command = NULL, **cmdlinev, tokensv, *temp; 
+	   int ret = 0, n = 0;
+
+	   printf("command: %s\n", command);
+	   printf("comd: %s\n", comd);
+	   while (command[ret])
+	   {
+		   printf("%c\n", command[ret]);
+		   if (command[ret] == ' ')
+			   n++;
+		   ret++;
+	   }
+	   printf("tokens: %d\n", n);
+	   ret = 0;
+	   token = strtok(command, " ");
+	   while (token)
+	   {
+		   printf("Token %d: %s\n", ++ret, token);
+		   token = strtok(NULL, " ");
+	   }
+	 /*  
 	   printf("INSIDE logical ops FUNC\n");
         while (token != NULL)
 	{
@@ -37,7 +54,7 @@ int _logical_ops(char *comd, char **currcmd)
 					printf("next cmd: %s\n", prev_command);
 				}
 			}
-                       /* prev_command = NULL;*/
+                        prev_command = NULL;
                 }
                 else
                 {
@@ -65,6 +82,6 @@ int _logical_ops(char *comd, char **currcmd)
 		cmdlinev = get_args(prev_command);
 		*currcmd = cmdlinev[0];
                 ret = gcmd_exec(cmdlinev);
-        }
+        } */
         return (ret);
 }
