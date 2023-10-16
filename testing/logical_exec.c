@@ -1,20 +1,16 @@
 #include "gosh.h"
-/**
- * logical_exec - executes logical and/or operations delimited with
- * ; sequentially.
- * @gcmdln: the user-entered command from stdin
- * Return: 0 on success, -1 on failure
- */
+
 int logical_exec(char *gcmdln)
 {
 	size_t cols = 0, i = 0;
 	char *cmdstr, **cmdv, *cmdline, *currcmd;
 	int retval, syntax_err;
-	extern int func_ret;
 
 	syntax_err = _syntax_checkr(&cmdstr, gcmdln);
 	if (!syntax_err)
 	{
+		printf("cmdstr:\n%s\nSyntax_err: %d\n", 
+			cmdstr, syntax_err);
 		while (cmdstr[i])
 		{
 			if (cmdstr[i] == ';')
@@ -35,23 +31,24 @@ int logical_exec(char *gcmdln)
 		}
 		else
 			cmdv[0] = cmdstr;
-		/*printf("\n*** commands entered ***\n"); */
+		printf("\n*** commands entered ***\n");
 		for (i = 0; cmdv[i]; i++)
 		{
-			printf("executing:\n%s\n", cmdv[i]);
-			retval = _logical_ops(cmdv[i], &currcmd);
-			func_ret = retval;
-			printf("retval[%s]: %d\n", currcmd, 
-				retval);
+			/*retval = _logical_ops(cmdv[i], &currcmd);
+			retval = 0;
 			if (retval != 0)
-				perror(currcmd);
+				perror(currcmd); */
+			printf("[%lu] %s\n", i + 1, cmdv[i]);
 		} 
 		printf("\n");
+		free(cmdstr);
 		return (0);
 	}
 	else
 	{
+		free(cmdstr);
 		printf("Some error occured\n");
 		return (-1);
 	}
+	(void)currcmd, (void)retval;
 } 

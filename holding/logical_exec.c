@@ -1,38 +1,57 @@
 #include "gosh.h"
-
-int main(void)
-{
-	char comd[] = "ls -l ../ cd ..; los || ls . && ls ..&& pwd; ls -a;";
-	int retval = logical_exec(comd);
-	printf("retval: %d\n", retval);
-	return (0); 
-}
-int logical_exec(char *comd)
+/**
+ * logical_exec - executes logical and/or operations delimited with
+ * ; sequentially.
+ * @gcmdln: the user-entered command from stdin
+ * Return: 0 on success, -1 on failure
+ */
+int logical_exec(char *gcmdln)
 {
 	size_t cols = 0, i = 0;
-	char **cmdv, *cmdline, *currcmd;
-	int retval;
-	
-	while (comd[i])
+	char *cmdstr, **cmdv, *cmdline, *currcmd;
+	int retval, syntax_err;
+	extern int func_ret;
+
+	syntax_err = _syntax_checkr(&cmdstr, gcmdln);
+	if (!syntax_err)
 	{
-		if (comd[i] == ';')
-			cols++;
-		i++;
+		while (cmdstr[i])
+		{
+			if (cmdstr[i] == ';')
+				cols++;
+			i++;
+		}
+		cols++, i = 0;
+		cmdv = malloc(sizeof(char *) * (cols + 1));
+		cmdv[cols] = NULL, cmdline = strtok(cmdstr, ";");
+		if (cmdline)
+		{
+			while (cols > 0) 
+			{
+				cmdv[i] = cmdline;
+				cmdline = strtok(NULL, ";");
+				cols--, i++;
+			}
+		}
+		else
+			cmdv[0] = cmdstr;
+		/*printf("\n*** commands entered ***\n"); */
+		for (i = 0; cmdv[i]; i++)
+		{
+			printf("executing:\n%s\n", cmdv[i]);
+			retval = _logical_ops(cmdv[i], &currcmd);
+			func_ret = retval;
+			printf("retval[%s]: %d\n", currcmd, 
+				retval);
+			if (retval != 0)
+				perror(currcmd);
+		} 
+		printf("\n");
+		return (0);
 	}
-	cols++;
-	cmdv = malloc(sizeof(char *) * (cols + 1));
-	cmdv[cols] = NULL;
-	cmdline = strtok(comd, ";"), i = 0;
-	while (cols > 0) 
+	else
 	{
-		cmdv[i] = cmdline;
-		cmdline = strtok(NULL, ";"), cols--, i++;
+		printf("Some error occured\n");
+		return (-1);
 	}
-	for (i = 0; cmdv[i]; i++)
-	{
-		retval = _logical_ops(cmdv[i], &currcmd);
-		if (retval != 0)
-			perror(currcmd);
-	}
-	return (0);
 } 

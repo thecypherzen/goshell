@@ -3,6 +3,7 @@
 int gcmd_fork(char *full_path, char **agv)
 {
 	pid_t gpid;
+	int ret_stat;
 	
 	if (!full_path)
 		return (-1);
@@ -16,7 +17,7 @@ int gcmd_fork(char *full_path, char **agv)
 	}
 	else
 	{
-		wait (NULL);
+		wait (&ret_stat);
 	}
-	return (0);
+	return (ret_stat);
 }

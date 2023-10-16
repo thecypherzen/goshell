@@ -4,8 +4,12 @@
 
 int main(void)
 {
-	char *name = "5";
-	int n = atoi(name);
-	printf("%d\n", n);
+	int i = 0;
+	char name[] = "The Fine #Man Kelv!";
+	printf("name before: %s\n", name);
+	char *ptr = strchr(name, '#');
+	if (ptr)
+		*ptr = '\0';
+	printf("name after: %s\n", name);
 	return(0);
 }

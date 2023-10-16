@@ -6,10 +6,16 @@
 */
 int gcmd_exec(char **agv)
 {
-	char *s_cmds[] = { "exit", "env", "setenv",
-				"unsetenv", "cd", NULL}, 
-	*full_path;
-	int j = 0, i = 0, match = 0, retval;
+	char *s_cmds[] = 
+	{ "exit", "env", "setenv", "unsetenv", "cd", "echo", 
+	  "cat", "touch", NULL
+	}, *full_path, *comment_pos = strchr(*agv, '#');
+	int j = 0, i = 0, match = 0;
+	
+	if (comment_pos != NULL)
+		*comment_pos = '\0';
+	if (!(**agv))
+		return (-1);
 	do
 	{
 		j = 0;
@@ -35,17 +41,20 @@ int gcmd_exec(char **agv)
 				return (_env_exec(agv));
 			case 3:
 				return (_setenv_exec(agv));
-				break;
 			case 4:
 				return (_unsetenv_exec(agv));
-				break;
 			case 5: 
 				printf("gcmd_exec: agv[1]: %s\n",
 					agv[1]);
 				return (ch_dir(agv[1]));
+			case 6:
+			        return (echo_echo(agv));
+			case 7:
+			        return (cat_cat(agv));
+			case 8:
+			        return (touch_touch(agv));
 			default:
 				return (-1);
-				break;
 		}
 	}
 	else
@@ -59,9 +68,7 @@ int gcmd_exec(char **agv)
 		}
 		else /* proceed to forking */
 		{
-			retval = gcmd_fork(full_path, agv);
-			if (retval < 0)
-				return (-1);
+			return (gcmd_fork(full_path, agv));
 		}
 	}
 	return (0);

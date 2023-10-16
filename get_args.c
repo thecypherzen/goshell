@@ -32,7 +32,7 @@ char **get_args(char *gcmdln)
 	agv[i] = NULL; /* also pass to g_history */
 	return (agv);
 }
-
+int func_ret = 0;
 int main(void)
 {
 	while (1)
@@ -40,7 +40,7 @@ int main(void)
 		char **agv = NULL, *gcmdln = NULL, *gprompt = "($) ";
 		ssize_t ret, write_res;
 		size_t gsize = 0;
-		int i;
+		int func_ret;
 		
 		write_res = write(1, gprompt, strlen(gprompt));
 		if (write_res < 0)
@@ -51,26 +51,39 @@ int main(void)
 		if (ret > 0 && gcmdln[0] != '\n')
 		{
 			gcmdln[ret - 1] = '\0';
-			agv = get_args(gcmdln); /* remember to free */
-			if (!agv)
+			func_ret = islogical_checkr(gcmdln);
+			if (func_ret < 0) /* gcmdln is null */
 			{
-				if (errno == -1)
+				printf("\n*** error from MAIN ***\n");
+				perror(gcmdln);
+				printf("************************\n");
+			}
+			else if (func_ret == 0) /* for gcmd_exec */
+			{
+				agv = get_args(gcmdln); /* remember to free */
+				if (!agv)
 				{
-					/* to handle getline failure error 
-		   			 * - free buffers if not null
-		       			 * - maybe use a func
-		   			*/
-					return (-1);
+					printf("\n*** error from MAIN ***\n");
+					perror(gcmdln);
+					printf("************************\n");
+				}
+				else
+				{
+					func_ret  = gcmd_exec(agv);
+					if (func_ret < 0)
+					{
+						printf("\n*** error from MAIN ***\n");
+						perror(agv[0]);
+						printf("************************\n");
+					}
 				}
 			}
 			else
 			{
-				i = gcmd_exec(agv);
-				if (i < 0)
+				func_ret = logical_exec(gcmdln);
+				if (func_ret < 0)
 				{
-					perror(agv[0]);
-					printf("Execution of %s Failed\n",
-						agv[0]);
+					/* err occured */
 				}
 			}
 			
@@ -84,7 +97,3 @@ int main(void)
 	}
 	return (0);
 }
-/* ls -l .
- * i_launchr
- * ni_launchr
- */

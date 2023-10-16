@@ -11,7 +11,7 @@ int ch_dir(char *dest)
 	rel_ids[] = {'.', '/', '~', ' ', '-', '\0'},
 	c = dest ? *dest : '~';
 	int i = 0;
-	printf("\n*** command: cd %s ***\n", dest);
+	/*printf("\n*** command: cd %s ***\n", dest); */
 	/*check if it begins with an alpha */
 	if ((c >= 65 && c <= 90) || (c >= 97 && c <= 122))
 	{

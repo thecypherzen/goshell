@@ -20,6 +20,7 @@
 /* External Variables */
 extern int errno;
 extern char **environ;
+
 char *s_chr(char *str, char c);
 ssize_t get_line(char **line, size_t *sz, FILE *stream);
 int handle_err(char *msg, int val);
@@ -44,15 +45,10 @@ int gcmd_fork(char *full_path, char **agv);
 int _chdir_helper(char *full_path, char *cwd);
 int ch_dir(char *dest);
 int logical_exec(char *comd);
-int islogical_checkr(char *cmdline);
 int _slops_comp(char *s_lops, char a, char b);
 int _syntax_checkr(char **cmdstr, char *gcmdln);
 int _logical_ops(char *comd, char **currcmd);
 int throw_syntax_err(int num, ...);
 int _cpyto_cmdstr(char *token, char **cmdstr);
-char *comment_handler(char *gcmd);
-int echo_echo(char **gcmd);
-int cat_cat(char **agv);
-int touch_touch(char **agv);
 
 #endif
