@@ -11,10 +11,11 @@ int _syntax_checkr(char **cmdstr, char *gcmdln)
 	int i, matched, ret;
         char *cmdl = strdup(gcmdln), *token, 
 	*lops[] = {";", "&&", "||", NULL};
-
+	printf("inside syntax checker..\n");
 	*cmdstr = malloc(strlen(gcmdln) + 1);
 	if (!(*cmdstr))
 		return (-1);
+	printf("syntax_checkr: malloc successful");
 	(*cmdstr)[0] = '\0';
 	if (*cmdl == ';' || *cmdl == '&' || *cmdl == '|')
 	{
@@ -25,6 +26,7 @@ int _syntax_checkr(char **cmdstr, char *gcmdln)
 	token = strtok(cmdl, " "); 
 	while (token)
 	{
+		printf("syntax_checkr: current token: %s\n", token);
 		i = matched = 0;
 		while(lops[i])
 		{
@@ -39,6 +41,7 @@ int _syntax_checkr(char **cmdstr, char *gcmdln)
 			strcat((*cmdstr), " "), strcat((*cmdstr), token);
 		else
 		{ 
+			printf("sending [%s] to _cpyto_cmdstr\n");
 			ret = _cpyto_cmdstr(token, cmdstr);
 			if (ret < 0)
 				return (ret);

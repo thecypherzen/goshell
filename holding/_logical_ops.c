@@ -1,30 +1,20 @@
 #include "gosh.h"
 
 int _logical_ops(char *comd, char **currcmd)
-   {
-	   char *command = s_dup(comd), *token,
-	   *prev_command = NULL, **cmdlinev, tokensv, *temp; 
-	   int ret = 0, n = 0;
+{
+	char *command = s_dup(comd), *token,
+	*prev_command = NULL, **cmdlinev, **tokensv, *temp; 
+	int ret = 0, n = 0;
 
-	   printf("command: %s\n", command);
-	   printf("comd: %s\n", comd);
-	   while (command[ret])
-	   {
-		   printf("%c\n", command[ret]);
-		   if (command[ret] == ' ')
-			   n++;
-		   ret++;
-	   }
-	   printf("tokens: %d\n", n);
-	   ret = 0;
-	   token = strtok(command, " ");
-	   while (token)
-	   {
-		   printf("Token %d: %s\n", ++ret, token);
-		   token = strtok(NULL, " ");
-	   }
-	 /*  
-	   printf("INSIDE logical ops FUNC\n");
+	tokensv = make_vectr(command, " ");
+	if (tokensv)
+	{
+		while (tokensv[n])
+			printf("token %d: %s\n", n + 1, tokensv[n++]);
+	}
+	
+	
+	/*
         while (token != NULL)
 	{
 		printf("curr token: %s\n", token);

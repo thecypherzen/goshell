@@ -17,9 +17,27 @@
 #include <unistd.h>
 #include <stdarg.h>
 
+/**
+ * struct format - struct for printf specifiers
+ * @id: type char pointer of the specifier 
+ * @f: type pointer to function for the conversion specifier
+ *
+ */
+
+typedef struct format
+{
+	char *id;
+	int (*f)();
+} gosh_struct;
+
 /* External Variables */
 extern int errno;
 extern char **environ;
+int gosh_printf(const char *format, ...);
+int gosh_print_int_number(int num);
+int gosh_print_string(va_list djlist2);
+int gosh_print_char(va_list djlist2);
+int gosh_print_unint_number(va_list djlist2);
 char *s_chr(char *str, char c);
 ssize_t get_line(char **line, size_t *sz, FILE *stream);
 int handle_err(char *msg, int val);
@@ -55,5 +73,6 @@ int echo_echo(char **gcmd);
 int cat_cat(char **agv);
 int touch_touch(char **agv);
 char *s_dup(char *str);
+char **make_vectr(char *str, char *delim);
 
 #endif

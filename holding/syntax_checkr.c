@@ -1,9 +1,10 @@
 #include "gosh.h"
 /**
- * syntax_checkr - checks for 2 edge cases.
- * 1. Empty commands/syntax errors (multiple operators and separators)
- * Trailing white spaces
- * Return: should be added to other functions.
+ * syntax_checkr - checks if a logical command is void of syntax errors.
+ * If there are errors, an error is thrown, with a message.
+ * @cmdstr: the command string from logical_exec func
+ * @gcmdln: the user-entered command from stdin
+ * Return: 0 if no syntax error, -1 if there is.
  */
 
 int _syntax_checkr(char **cmdstr, char *gcmdln)

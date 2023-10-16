@@ -3,10 +3,18 @@
 int _logical_ops(char *comd, char **currcmd)
 {
 	char *command = s_dup(comd), *token,
-	*prev_command = NULL, **cmdlinev, tokensv, *temp; 
+	*prev_command = NULL, **cmdlinev, **tokensv, *temp; 
 	int ret = 0, n = 0;
 
-	token = strtok(command, " ");
+	tokensv = make_vectr(command, " ");
+	if (tokensv)
+	{
+		while (tokensv[n])
+			printf("token %d: %s\n", n + 1, tokensv[n++]);
+	}
+	
+	
+	/*
         while (token != NULL)
 	{
 		printf("curr token: %s\n", token);
@@ -64,6 +72,6 @@ int _logical_ops(char *comd, char **currcmd)
 		cmdlinev = get_args(prev_command);
 		*currcmd = cmdlinev[0];
                 ret = gcmd_exec(cmdlinev);
-        }
+        } */
         return (ret);
 }

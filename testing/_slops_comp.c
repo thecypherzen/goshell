@@ -8,8 +8,9 @@
  */
 int _slops_comp(char *s_lops, char a, char b)
 {
+	printf9
 	int a_match = 0, b_match = 0, i = 0;
-
+	printf("comparing: %c & %c\n", a ,b);
 	if (a == b)
 	{
 		while (s_lops[i])
