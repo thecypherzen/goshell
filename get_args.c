@@ -52,11 +52,12 @@ int main(void)
 		{
 			gcmdln[ret - 1] = '\0';
 			func_ret = islogical_checkr(gcmdln);
+			printf("is logical:%d\n", func_ret);
 			if (func_ret < 0) /* gcmdln is null */
 				perror(gcmdln);
 			else if (func_ret == 0) /* for gcmd_exec */
 			{
-				agv = get_args(gcmdln); /* remember to free */
+				agv = get_args(gcmdln);
 				if (!agv)
 					perror(gcmdln);
 				else

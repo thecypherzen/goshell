@@ -11,13 +11,15 @@ int gcmd_exec(char **agv)
 	  "cat", "touch", "alias", NULL
 	}, *full_path, *comment_pos = strchr(*agv, '#');
 	int j = 0, i = 0, match = 0;
-	
+
+	printf("****gcmd_exec ******\n");
 	if (comment_pos != NULL)
 		*comment_pos = '\0';
 	if (!(**agv))
 		return (-1);
 	do
 	{
+		printf("agv[0]: %s\n", agv[0]);
 		j = 0;
 		while (s_cmds[j++])
 		{
