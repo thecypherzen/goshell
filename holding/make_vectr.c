@@ -7,31 +7,35 @@
  * Return: ptr to the vecor on success.
  *         NULL otherwise or if error
  */
-char **make_vectr(char *str, char *delim)
+char **make_vectr(char *inputstr, char *delim)
 {
-	char **vectr, *token;
+	char **vectr, *token, *str;
 	int n = 0, i = 0;
-	printf("make vectr func\n");
-	if (!str)
+	
+	if (!inputstr)
 		return (NULL);
+	str = s_dup(inputstr);
+	
 	while (str[i++])
 	{
 		if (str[i - 1] == *delim)
 			n++;
 	}
 	n += 2, i = 0;
-	printf("about to malloc\n");
 	vectr = malloc(sizeof(char *) * (n));
 	if (!vectr)
 		return (NULL);
-	printf("malloc successful\n");
-	vectr[n] = NULL, token = strtok(str, delim);
-	while (n > 1)
+	vectr[--n] = NULL, token = strtok(str, delim);
+	if (!token)
+		vectr[0] = s_dup(str);
+	else
 	{
-		vectr[i] = token;
-		token = strtok(NULL, delim);
-		i++, n--;
+		while (i < n)
+		{
+			vectr[i] = s_dup(token);
+			token = strtok(NULL, delim);
+			i++;
+		}
 	}
-	i = 0;
 	return (vectr);
 }

@@ -1,0 +1,22 @@
+#include "gosh.h"
+
+int main(void)
+{
+	int res;
+	char **cmdvctr;
+
+	cmdvctr = make_vectr("alias name='This' val='value' time='now'", " ");
+	res = alias_handler(cmdvctr);
+	gosh_printf("Res: %i\n",res);
+	
+	cmdvctr = make_vectr("alias name val time", " ");
+	res = alias_handler(cmdvctr);
+	gosh_printf("Res: %i\n",res);
+
+	gosh_printf("*****Printing all aliases******\n");
+	cmdvctr = make_vectr("alias", " ");
+	res = alias_handler(cmdvctr);
+	gosh_printf("Res: %i\n",res);
+	return (0);
+}
+

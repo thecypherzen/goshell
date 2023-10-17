@@ -17,9 +17,45 @@
 #include <unistd.h>
 #include <stdarg.h>
 
+#define MAX_A_VAR_SIZE 50
+#define MAX_A_NAME 50
+#define MAX_A_VALUE 100
+
+/**
+ * struct format - struct for printf specifiers
+ * @id: type char pointer of the specifier 
+ * @f: type pointer to function for the conversion specifier
+ *
+ */
+
+typedef struct format
+{
+	char *id;
+	int (*f)();
+} gosh_struct;
+
+
+/**
+ * struct alias - struct for printf specifiers
+ * @name: the alias name 
+ * @value: the alias value
+ *
+ */
+
+struct alias
+{
+        char a_name[MAX_A_NAME];
+        char a_value[MAX_A_VALUE];
+};
+
 /* External Variables */
 extern int errno;
 extern char **environ;
+int gosh_printf(const char *format, ...);
+int gosh_print_int_number(va_list djlist2);
+int gosh_print_string(va_list djlist2);
+int gosh_print_char(va_list djlist2);
+int gosh_print_unint_number(va_list djlist2);
 char *s_chr(char *str, char c);
 ssize_t get_line(char **line, size_t *sz, FILE *stream);
 int handle_err(char *msg, int val);
@@ -56,5 +92,8 @@ int cat_cat(char **agv);
 int touch_touch(char **agv);
 char *s_dup(char *str);
 char **make_vectr(char *str, char *delim);
-
+int alias_handler(char **agv);
+struct alias *gosh_find_alias(char *name);
+int gosh_define_alias(char *name, char *value);
+int gosh_print_aliases(void);
 #endif

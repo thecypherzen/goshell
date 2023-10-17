@@ -1,19 +1,17 @@
 #include "gosh.h"
 /**
- * syntax_checkr - checks if a logical command is void of syntax errors.
- * If there are errors, an error is thrown, with a message.
- * @cmdstr: the command string from logical_exec func
- * @gcmdln: the user-entered command from stdin
- * Return: 0 if no syntax error, -1 if there is.
+ * syntax_checkr - checks for 2 edge cases.
+ * 1. Empty commands/syntax errors (multiple operators and separators)
+ * Trailing white spaces
+ * Return: should be added to other functions.
  */
-
 int _syntax_checkr(char **cmdstr, char *gcmdln)
 {
 	int i, matched, ret;
         char *cmdl = strdup(gcmdln), *token, 
 	*lops[] = {";", "&&", "||", NULL};
-
-	*cmdstr = malloc(strlen(gcmdln) + 1);
+	
+	*cmdstr = (char *)malloc(strlen(gcmdln) + 1);
 	if (!(*cmdstr))
 		return (-1);
 	(*cmdstr)[0] = '\0';

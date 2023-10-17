@@ -8,7 +8,7 @@ int gcmd_exec(char **agv)
 {
 	char *s_cmds[] = 
 	{ "exit", "env", "setenv", "unsetenv", "cd", "echo", 
-	  "cat", "touch", NULL
+	  "cat", "touch", "alias", NULL
 	}, *full_path, *comment_pos = strchr(*agv, '#');
 	int j = 0, i = 0, match = 0;
 	
@@ -53,6 +53,8 @@ int gcmd_exec(char **agv)
 			        return (cat_cat(agv));
 			case 8:
 			        return (touch_touch(agv));
+			case 9:
+				return (alias_handler(agv));
 			default:
 				return (-1);
 		}

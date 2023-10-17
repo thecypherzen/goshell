@@ -11,6 +11,7 @@ int _cpyto_cmdstr(char *token, char **cmdstr)
 		c1 = token[i], c2 = token[i + 1], match2 = 0;
 		printf("comparing %c and %c\n", c1, c2);
 		matched = _slops_comp(s_lops, c1, c2);
+		
 		if (matched < 0)
 			return (throw_syntax_err(1, c2));
 		else
@@ -27,9 +28,9 @@ int _cpyto_cmdstr(char *token, char **cmdstr)
 	}
 	if (c1 = token[i])
 	{
-		printf("comparing c2: %c & c1: %c\n", c2, c1);
+		/*printf("comparing c2: %c & c1: %c\n", c2, c1);
 		if (_slops_comp(s_lops, c1, c2) != 0)
-			return (throw_syntax_err(1, c1));
+			return (throw_syntax_err(1, c1)); */
 		j = strlen(*cmdstr);
 		(*cmdstr)[j] = token[i], (*cmdstr)[j + 1] = '\0';
 	}

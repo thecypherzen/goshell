@@ -9,7 +9,7 @@
 int _slops_comp(char *s_lops, char a, char b)
 {
 	int a_match = 0, b_match = 0, i = 0;
-
+	
 	if (a == b)
 	{
 		while (s_lops[i])

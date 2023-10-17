@@ -11,8 +11,10 @@ int _syntax_checkr(char **cmdstr, char *gcmdln)
 	int i, matched, ret;
         char *cmdl = strdup(gcmdln), *token, 
 	*lops[] = {";", "&&", "||", NULL};
-	printf("inside syntax checker..\n");
-	*cmdstr = malloc(strlen(gcmdln) + 1);
+	
+	printf("\n....inside syntax checker....\n");
+	printf("gcmdln len: %lu\n", strlen(gcmdln));
+	*cmdstr = (char *)malloc(strlen(gcmdln) + 1);
 	if (!(*cmdstr))
 		return (-1);
 	printf("syntax_checkr: malloc successful");
