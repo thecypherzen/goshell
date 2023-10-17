@@ -12,19 +12,15 @@ int gcmd_exec(char **agv)
 	}, *full_path, *comment_pos = strchr(*agv, '#');
 	int j = 0, i = 0, match = 0;
 
-	printf("****gcmd_exec ******\n");
 	if (comment_pos != NULL)
 		*comment_pos = '\0';
 	if (!(**agv))
 		return (-1);
 	do
 	{
-		printf("agv[0]: %s\n", agv[0]);
 		j = 0;
 		while (s_cmds[j++])
 		{
-			printf("checking %s | %s\n", 
-				agv[i], s_cmds[j - 1]);
 			if (strcmp(agv[i], s_cmds[j - 1]) == 0)
 			{
 				match = 1;
@@ -36,8 +32,6 @@ int gcmd_exec(char **agv)
 	} while (++i < 1);
 	if (match)
 	{
-		printf("match found: \n");
-		printf("%s\n", s_cmds[j - 1]);
 		switch (j)
 		{
 			case 1:
