@@ -21,6 +21,8 @@ int gcmd_exec(char **agv)
 		j = 0;
 		while (s_cmds[j++])
 		{
+			printf("checking %s | %s\n", 
+				agv[i], s_cmds[j - 1]);
 			if (strcmp(agv[i], s_cmds[j - 1]) == 0)
 			{
 				match = 1;
