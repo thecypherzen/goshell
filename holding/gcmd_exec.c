@@ -8,19 +8,23 @@ int gcmd_exec(char **agv)
 {
 	char *s_cmds[] = 
 	{ "exit", "env", "setenv", "unsetenv", "cd", "echo", 
-	  "cat", "touch", NULL
+	  "cat", "touch", "alias", NULL
 	}, *full_path, *comment_pos = strchr(*agv, '#');
 	int j = 0, i = 0, match = 0;
-	
+
+	printf("****gcmd_exec ******\n");
 	if (comment_pos != NULL)
 		*comment_pos = '\0';
 	if (!(**agv))
 		return (-1);
 	do
 	{
+		printf("agv[0]: %s\n", agv[0]);
 		j = 0;
 		while (s_cmds[j++])
 		{
+			printf("checking %s | %s\n", 
+				agv[i], s_cmds[j - 1]);
 			if (strcmp(agv[i], s_cmds[j - 1]) == 0)
 			{
 				match = 1;
@@ -53,6 +57,8 @@ int gcmd_exec(char **agv)
 			        return (cat_cat(agv));
 			case 8:
 			        return (touch_touch(agv));
+			case 9:
+				return (alias_handler(agv));
 			default:
 				return (-1);
 		}
