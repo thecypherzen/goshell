@@ -36,7 +36,8 @@ int gcmd_exec(char **agv)
 	} while (++i < 1);
 	if (match)
 	{
-		printf("match found: %s\n", agv[i - 1]);
+		printf("match found: \n");
+		printf("%s\n", s_cmds[j - 1]);
 		switch (j)
 		{
 			case 1:
