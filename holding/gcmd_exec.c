@@ -36,6 +36,7 @@ int gcmd_exec(char **agv)
 	} while (++i < 1);
 	if (match)
 	{
+		printf("match found: %s\n", agv[i - 1]);
 		switch (j)
 		{
 			case 1:
@@ -58,6 +59,7 @@ int gcmd_exec(char **agv)
 			case 8:
 			        return (touch_touch(agv));
 			case 9:
+				printf("alias section..\n");
 				return (alias_handler(agv));
 			default:
 				return (-1);
