@@ -10,11 +10,11 @@ int cat_cat(char **agv)
 	size_t sz = 128;
 	ssize_t bytes_read, ret_val = 0;
 	int fd;
-	
+
 	buffer = malloc(sz);
 	if (!buffer)
 		return (-1);
-	
+
 	fd = open(agv[1], O_RDONLY);
 	if (fd == -1)
 	{

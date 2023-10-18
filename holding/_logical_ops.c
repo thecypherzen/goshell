@@ -25,7 +25,7 @@ int _logical_ops(char *comd, char **currcmd)
 				if (!cmdlinev)
 					return (-1);
 				*currcmd = cmdlinev[0];
-                                ret = gcmd_exec(cmdlinev);
+                                ret = gcmd_exec(cmdlinev, NULL);
 			}
 			if ((s_cmp(token, "&&") == 0 && ret != 0) 
 				|| (s_cmp(token, "||") == 0 
@@ -59,7 +59,7 @@ int _logical_ops(char *comd, char **currcmd)
         if (prev_command && !token)
         {
 		cmdlinev = make_vectr(prev_command, " .");
-		*currcmd = cmdlinev[0], ret = gcmd_exec(cmdlinev);
+		*currcmd = cmdlinev[0], ret = gcmd_exec(cmdlinev, NULL);
         }
         return (ret);
 }

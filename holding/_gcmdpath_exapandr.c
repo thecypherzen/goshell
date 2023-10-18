@@ -9,7 +9,7 @@ char *_gcmdpath_expandr(char *rel_path)
 	char *abs_path = NULL, *temp = NULL, 
 	rel_ids[] = {'.', '/', '~', '\0'}, c = *rel_path;
 	int i = 0;
-	
+
 	while (rel_ids[i])
 	{
 		if (c == rel_ids[i])
@@ -17,7 +17,7 @@ char *_gcmdpath_expandr(char *rel_path)
 		i++;
 	}
 	if (!i)
-	{ 
+	{
 		if (rel_path[1] == '.' && (rel_path[2] == '/'))
 		{
 			temp = _getparent_path(_get_env("PWD"));
@@ -32,7 +32,10 @@ char *_gcmdpath_expandr(char *rel_path)
 		return (abs_path = NULL);
 	}
 	else if (i == 1)
-		abs_path = _getfull_path(rel_path, "/", 1); /* PIN */
+	{
+		temp = s_dup("/");
+		abs_path = _getfull_path(rel_path, temp, 1); /* PIN */
+	}
 	else if (i == 2)
 	{
 		if (rel_path[1] == '/')

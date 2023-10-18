@@ -7,43 +7,27 @@
  */
 int logical_exec(char *gcmdln)
 {
-	size_t cols = 0, i = 0;
-	char *cmdstr, **cmdv, *cmdline, *currcmd;
+	size_t  i = 0;
+	char *cmdstr, **cmdv, *currcmd;
 	int retval, syntax_err;
 	extern int func_ret;
 
 	syntax_err = _syntax_checkr(&cmdstr, gcmdln);
 	if (!syntax_err)
 	{
-		while (cmdstr[i])
-		{
-			if (cmdstr[i] == ';')
-				cols++;
-			i++;
-		}
-		cols++, i = 0;
-		cmdv = malloc(sizeof(char *) * (cols + 1));
-		cmdv[cols] = NULL, cmdline = s_tok(cmdstr, ";");
-		if (cmdline)
-		{
-			while (cols > 0) 
-			{
-				cmdv[i] = cmdline;
-				cmdline = s_tok(NULL, ";");
-				cols--, i++;
-			}
-		}
-		else
-			cmdv[0] = s_dup(cmdstr);
+		cmdv = make_vectr(cmdstr, ";");
+		if (!cmdv)
+			return (-1);
 		for (i = 0; cmdv[i]; i++)
 		{
 			retval = _logical_ops(cmdv[i], &currcmd);
 			func_ret = retval;
 			if (retval != 0)
 				perror(currcmd);
-		} 
+		}
+		free_vectr(cmdv), free(cmdv);
 		return (0);
 	}
 	else
 		return (-1);
-} 
+}

@@ -50,7 +50,8 @@ char *_getfull_path(char *rel_path, char *cwd, int slashed)
 		}
 		gosh_printf("IN getfull_path func:\n");
 		gosh_printf("full_path => %s\n", full_path ? full_path : "null");
-		return (access(full_path, F_OK | X_OK) == 0 ? 
+		free(cwd);
+		return (access(full_path, F_OK | X_OK) == 0 ?
 			full_path : NULL);
 	}
 	else /* tokenise PATH and find command */
@@ -58,7 +59,7 @@ char *_getfull_path(char *rel_path, char *cwd, int slashed)
 		cwd_cpy = strdup(cwd); temp = s_tok(cwd_cpy, ":");
 		while (temp) /* /usr/local/sbin */
 		{
-			full_path = malloc((s_len(temp)) + 
+			full_path = malloc((s_len(temp)) +
 				s_len(rel_path) + 2);
 			if (!full_path)
 				return (NULL);
@@ -69,7 +70,10 @@ char *_getfull_path(char *rel_path, char *cwd, int slashed)
 				full_path[i] = rel_path[j], i++, j++;
 			full_path[i] = '\0';
 			if (access(full_path, F_OK | X_OK) == 0)
+			{
+				free(cwd_cpy);
 				return (full_path);
+			}
 			else
 			{
 				temp = s_tok(NULL, ":"), i = j = 0;
@@ -77,6 +81,7 @@ char *_getfull_path(char *rel_path, char *cwd, int slashed)
 				full_path = NULL;
 			}
 		}
+		free(cwd_cpy), free(cwd);
 		return (full_path);
 	}
 }

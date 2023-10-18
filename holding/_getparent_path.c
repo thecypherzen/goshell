@@ -11,7 +11,7 @@ char *_getparent_path(char *cwd)
 	if (cwd)
 	{
 		i = s_len(cwd) - 1;
-	
+
 		/* find the last occurence of ''/'' */
 		while (cwd[i] != '/')
 			i--;
@@ -27,5 +27,6 @@ char *_getparent_path(char *cwd)
 		gosh_printf("[in_getparent_path func:] freing cwd...");
 		gosh_printf("=> SUCCESSFUL\n");
 	}
+	free(cwd);
 	return (parent);
 }

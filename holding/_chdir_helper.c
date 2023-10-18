@@ -10,7 +10,7 @@ int _chdir_helper(char *full_path, char *cwd)
 	int retval;
 
 	gosh_printf("....IN _chdir_helper....\n");
-	gosh_printf("full_path: %s\ncwd: %s\n", full_path, 
+	gosh_printf("full_path: %s\ncwd: %s\n", full_path,
 		cwd ? cwd : "(IS NULL)");
 	if (!full_path || !cwd)
 		return (-1);
@@ -23,12 +23,13 @@ int _chdir_helper(char *full_path, char *cwd)
 		gosh_printf("CHDIR successful\n");
 	else
 	{
-		gosh_printf("CHDIR failed. Errno: %i\n", 
+		gosh_printf("CHDIR failed. Errno: %i\n",
 			errno == ENOENT ? 99 : -111);
 	}
 	if (setenv("PWD", full_path, 1) == 0)
 		gosh_printf("SETVAL of PWD to full_path SUCCESSFUL\n");
 	else
 		gosh_printf("SETVAL of PWD to full_path FAILED\n\n");
+	free(full_path), free(cwd);
 	return (retval);
 }

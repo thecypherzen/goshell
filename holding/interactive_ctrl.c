@@ -5,17 +5,17 @@
 int func_ret = 10;
 int main(void)
 {
-	while (1)
-	{
-		char **agv = NULL, *gcmdln = NULL, *gprompt = "($) ";
-		ssize_t ret, write_res;
-		size_t gsize = 0;
-		int func_ret;
+	char **agv = NULL, *gcmdln = NULL, *gprompt = "($) ";
+	ssize_t ret, write_res;
+	size_t gsize = 0;
+	int func_ret;
 
+	while  (1)
+	{
 		write_res = write(1, gprompt, s_len(gprompt));
 		if (write_res < 0)
 			return (handle_err("Write Failed", 1));
-		
+
 		ret = getline(&gcmdln, &gsize, stdin);
 		/* get arguments if res is valid */
 		if (ret > 0 && gcmdln[0] != '\n')
@@ -32,23 +32,22 @@ int main(void)
 					perror(gcmdln);
 				else
 				{
-					func_ret  = gcmd_exec(agv);
+					func_ret  = gcmd_exec(agv, gcmdln);
 					if (func_ret < 0)
 						perror(agv[0]);
+					free_vectr(agv), free(agv);
 				}
 			}
 			else
-			{
 				func_ret = logical_exec(gcmdln);
-			}
-			if (gcmdln)
-				free(gcmdln);
 		}
-		else if (ret < 0)
+		else if (ret <= 0)
 		{
 			s_write('\n');
-			return (0);
+			break;
 		}
 	}
+	if (gcmdln)
+		free(gcmdln);
 	return (0);
 }

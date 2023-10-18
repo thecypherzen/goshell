@@ -9,13 +9,13 @@ char *s_dup(char *str)
 {
 	char *new_str;
 	size_t len = 0;
-	
+
 	if (!str)
 		return (NULL);
 	while (str[len])
 		len++;
 	new_str = malloc(sizeof(char) * (len + 1));
-	
+
 	if (!new_str)
 		return (NULL);
 	len = 0;

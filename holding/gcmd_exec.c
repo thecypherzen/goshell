@@ -4,10 +4,10 @@
  * @agv: arguments vector
  * Return: 0 on success, -1 on error
 */
-int gcmd_exec(char **agv)
+int gcmd_exec(char **agv, char *gcmdln)
 {
-	char *s_cmds[] = 
-	{"exit", "env", "setenv", "unsetenv", "cd", "echo", 
+	char *s_cmds[] =
+	{"exit", "env", "setenv", "unsetenv", "cd", "echo",
 	  "cat", "touch", "alias", NULL}, *full_path;
 	int j = 0, i = 0, match = 0;
 
@@ -32,7 +32,7 @@ int gcmd_exec(char **agv)
 		switch (j)
 		{
 			case 1:
-				_exit_exec(agv);
+				_exit_exec(agv, gcmdln);
 				break;
 			case 2:
 				return (_env_exec(agv));
@@ -40,7 +40,7 @@ int gcmd_exec(char **agv)
 				return (_setenv_exec(agv));
 			case 4:
 				return (_unsetenv_exec(agv));
-			case 5: 
+			case 5:
 				return (ch_dir(agv[1]));
 			case 6:
 			        return (echo_echo(agv));

@@ -6,9 +6,9 @@
  * return: void;
 */
 
-void _exit_exec(char **agv)
+void _exit_exec(char **agv, char *gcmdln)
 {
 	int exit_status = agv[1] ? gosh_atoi(agv[1]) : 0;
-	free(agv);
+	free_vectr(agv), free(gcmdln);
 	exit(exit_status);
 }

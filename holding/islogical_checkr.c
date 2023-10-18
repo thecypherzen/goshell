@@ -1,7 +1,7 @@
 #include "gosh.h"
 
 /**
- * islogical_checkr - checks if a command line has logical 
+ * islogical_checkr - checks if a command line has logical
  * operators
  * @cmdline: the command line
  * Return: 1 if there is at least one logical operator in command
