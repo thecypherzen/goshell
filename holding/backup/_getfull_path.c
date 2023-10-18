@@ -10,17 +10,17 @@
 char *_getfull_path(char *rel_path, char *cwd, int slashed)
 {
 	char *temp = NULL, *full_path = NULL, *cwd_cpy;
-	size_t i = 0, j = 0, len_rel = rel_path ? strlen(rel_path) : 0, 
-	len_cw = cwd ? strlen(cwd) : 0, found = 0;
+	size_t i = 0, j = 0, len_rel = rel_path ? s_len(rel_path) : 0, 
+	len_cw = cwd ? s_len(cwd) : 0, found = 0;
 
-	printf("...inside getfullpath func...\n");
+	gosh_printf("...inside getfullpath func...\n");
 	if (slashed) /* ../enters here if rel paths are provided */
 	{ /* cd goshell  cd .. */
 		if (*rel_path == '/')
 			full_path = rel_path;
 		else
 		{ /* cd goshen   */
-			printf("inside slashed func: about to malloc\n");
+			gosh_printf("inside slashed func: about to malloc\n");
 			while (rel_path[i] != '/' && rel_path[i])
 			{
 				i++;
@@ -29,13 +29,13 @@ char *_getfull_path(char *rel_path, char *cwd, int slashed)
 			}
 			if (i == len_rel)
 				i = 0;
-			printf("rel_path len: %lu | cwd_len: %lu\n",
-				rel_path ? strlen(rel_path) : 99,
-				cwd ? strlen(cwd): 101);
+			gosh_printf("rel_path len: %lu | cwd_len: %lu\n",
+				rel_path ? s_len(rel_path) : 99,
+				cwd ? s_len(cwd): 101);
 			full_path = malloc((len_rel - i) + len_cw + 2); 
 			if (!full_path)
 			{
-				printf("malloc failed\n");
+				gosh_printf("malloc failed\n");
 				return (NULL);
 			}
 			while (cwd[j]) /* ../bin/ls   /  */
@@ -48,18 +48,18 @@ char *_getfull_path(char *rel_path, char *cwd, int slashed)
 				full_path[j] = rel_path[i], i++, j++;
 			full_path[j] = '\0';
 		}
-		printf("IN getfull_path func:\n");
-		printf("full_path => %s\n", full_path ? full_path : "null");
+		gosh_printf("IN getfull_path func:\n");
+		gosh_printf("full_path => %s\n", full_path ? full_path : "null");
 		return (access(full_path, F_OK | X_OK) == 0 ? 
 			full_path : NULL);
 	}
 	else /* tokenise PATH and find command */
 	{
-		cwd_cpy = strdup(cwd); temp = strtok(cwd_cpy, ":");
+		cwd_cpy = strdup(cwd); temp = s_tok(cwd_cpy, ":");
 		while (temp) /* /usr/local/sbin */
 		{
-			full_path = malloc((strlen(temp)) + 
-				strlen(rel_path) + 2);
+			full_path = malloc((s_len(temp)) + 
+				s_len(rel_path) + 2);
 			if (!full_path)
 				return (NULL);
 			while(temp[i])
@@ -72,7 +72,7 @@ char *_getfull_path(char *rel_path, char *cwd, int slashed)
 				return (full_path);
 			else
 			{
-				temp = strtok(NULL, ":"), i = j = 0;
+				temp = s_tok(NULL, ":"), i = j = 0;
 				free(full_path);
 				full_path = NULL;
 			}

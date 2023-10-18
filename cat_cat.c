@@ -1,6 +1,8 @@
 #include "gosh.h"
 /**
- * 
+ * cat_cat - a custom cat function, creates a file
+ * @agv: argument passed by used to create a file
+ * Return: 0 on success and -1 on failure
  */
 int cat_cat(char **agv)
 {
@@ -19,7 +21,6 @@ int cat_cat(char **agv)
 		perror(agv[1]);
 		return (-1);
 	}
-	
 	bytes_read = read(fd, buffer, sz);
 	while (bytes_read > 0)
 	{
@@ -28,6 +29,7 @@ int cat_cat(char **agv)
 			break;
 		bytes_read = read(fd, buffer, sz);
         }
+	s_write('\n');
 	free(buffer), close(fd);
 	if (bytes_read < 0 || ret_val < 0)
 	{

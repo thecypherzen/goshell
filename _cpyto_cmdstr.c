@@ -1,4 +1,10 @@
 #include "gosh.h"
+/**
+* _cpyto_cmdstr - a helper to the logical_ops func.
+* @token: tokenised commands
+* @cmdstr: the arguments passed as commands
+* Return: returns 0 for success or -1 for failure
+*/
 
 int _cpyto_cmdstr(char *token, char **cmdstr)
 {
@@ -17,7 +23,7 @@ int _cpyto_cmdstr(char *token, char **cmdstr)
 			if (_slops_comp(s_lops, c2, 
 				token[i + 2]) != 0)
 				return (throw_syntax_err(1, c1));
-			len = strlen(*cmdstr), j = len ? len : 0;
+			len = s_len(*cmdstr), j = len ? len : 0;
 			if (j > 0 && !k)
 				(*cmdstr)[j] = ' ', j++;
 			(*cmdstr)[j] = c1, j++, k++;
@@ -29,7 +35,7 @@ int _cpyto_cmdstr(char *token, char **cmdstr)
 	}
 	if (token[i])
 	{
-		j = strlen(*cmdstr);
+		j = s_len(*cmdstr);
 		(*cmdstr)[j] = token[i], (*cmdstr)[j + 1] = '\0';
 	}
 	return (0);

@@ -1,15 +1,16 @@
 #include "gosh.h"
 /**
- * _printf - a custom made printf function
+ * gosh_printf - a custom made printf function
  * @format: argument expecting variadic arguments
- *  Return: count of printed characters
+ * Return: count of printed characters
  */
 
 int gosh_printf(const char *format, ...)
 {
 	gosh_struct gosh_table[] = {
 		{"%s", gosh_print_string}, {"%c", gosh_print_char},
-		{"%i", gosh_print_int_number}, {"%u", gosh_print_unint_number}
+		{"%i", gosh_print_int_number},
+		{"%u", gosh_print_unint_number}, {"%d", gosh_print_dec_number}
 		};
 
 	va_list djlist2;

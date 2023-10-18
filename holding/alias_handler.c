@@ -10,40 +10,45 @@ int alias_handler(char **agv)
 	char *temp, *name, *val, *entry;
 	struct alias *found;
 	
-	printf("*****alias_handler func*****\n");
+	gosh_printf("*****alias_handler func*****\n");
 	if (!agv[1])
 	{
-		printf("calliing_print_aliases\n");
+		gosh_printf("calliing_print_aliases\n");
 		return (gosh_print_aliases());
 	}
 	else
 	{
 		while (agv[i])
 		{
-			entry = s_dup(agv[i]);
-			temp = s_chr(entry, '=');
+			entry = s_dup(agv[i]), temp = s_chr(entry, '=');
+			printf("\nentry: %s | temp: %s\n", entry, temp);
 			if (temp)
 			{
-				printf("calling define alias\n");
-;				name = s_tok(entry, "=");
-				val = s_tok(NULL, "=");
+				gosh_printf("calling define alias\n");
+				name = s_tok(entry, "="), val = s_tok(NULL, "=");
+				printf("name: %s | val: %s\n", name, val);
+				if (val[0] == '\'' || val[0] == '\"')
+				{
+					val = _dequoter(val);
+					if (!val)
+						return (-1);
+				}
 				ret = gosh_define_alias(name, val);
 				if (ret < 0)
 					gosh_printf("An error occured\n");
 			}
 			else
 			{
-				printf("calling find alias\n");
+				gosh_printf("calling find alias\n");
 				found = gosh_find_alias(entry);
 				if (!found)
-				{
-					gosh_printf("%s not found\n",
-						entry);
-				}
-				gosh_printf("alias %s=%s\n", 
+					gosh_printf("-%s alias: %s not found\n",
+						__FILE__, entry);
+				else
+					gosh_printf("alias %s='%s'\n", 
 					found->a_name, found->a_value);
 			}
-			i++;
+			free(entry), i++;
 		}
 	}
 	return (0);

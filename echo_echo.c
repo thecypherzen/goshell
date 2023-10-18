@@ -1,39 +1,38 @@
 #include "gosh.h"
 /**
- * get_variable - gets the value of the inputed systems variable.
+ * echo_echo - gets the value of the inputed systems variable.
  * @gcmd: variable name entered by User.
  * Return: value of the environ variable
  */
 
-int echo_echo(char **gcmd)
+int echo_echo(char **agv)
 {
-	int i;
+	int i = 1, res;
 	char *env_val;
 	extern int func_ret;
 	
-	char *var_ids[] = {"$$", "$?", "$PATH", "$HOME", "$USER",
-			   "$LOGNAME", "$SHELL", NULL};
-	if (!gcmd || !gcmd[1])
+	res = func_ret;
+	if (!agv || !agv[1])
 		return (-1);
-	if (strcmp(gcmd[1], var_ids[0]) == 0)
-		printf("%d\n", getpid());
-	if (strcmp(gcmd[1], var_ids[1]) == 0)
-		printf("%d\n", func_ret);
-	i = 2;
-	while (var_ids[i]) 
+	while (agv[i])
 	{
-		if (strcmp(gcmd[1], var_ids[i]) == 0)
+		if (agv[i][0] == '$' && agv[i][1] == '$')
+			gosh_printf("%d", getpid());
+		else if (agv[i][0] == '$' && agv[i][1] == '?')
+			gosh_printf("%d", res);
+		else if (agv[i][0] == '$')
 		{
-			env_val = getenv(var_ids[i]);
-			printf("%s\n", env_val ? env_val : "\n");
-			return (env_val ? 0 : -1);
+			env_val = _get_env(++(agv[i])), (agv[i])--;
+			if (env_val)
+				gosh_printf("%s", env_val);
 		}
+		else 
+			gosh_printf("%s", agv[i]);
 		i++;
-	} 
-	while (gcmd)	
-	{
-		printf("%s", gcmd[i]);
-		i++;
+		if (agv[i])
+			gosh_printf(" ");
+		else
+			gosh_printf(" \n");
 	}
 	return (0);
 }

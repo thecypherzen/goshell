@@ -9,26 +9,26 @@ int _chdir_helper(char *full_path, char *cwd)
 {
 	int retval;
 
-	printf("....IN _chdir_helper....\n");
-	printf("full_path: %s\ncwd: %s\n", full_path, 
+	gosh_printf("....IN _chdir_helper....\n");
+	gosh_printf("full_path: %s\ncwd: %s\n", full_path, 
 		cwd ? cwd : "(IS NULL)");
 	if (!full_path || !cwd)
 		return (-1);
 	if (setenv("OLDPWD", cwd, 1) == 0)
-		printf("\nsetting OLDPWD successful\n");
+		gosh_printf("\nsetting OLDPWD successful\n");
 	else
-		printf("\nSetting OLDPWD failed\n");
+		gosh_printf("\nSetting OLDPWD failed\n");
 	retval = chdir(full_path);
 	if (retval == 0)
-		printf("CHDIR successful\n");
+		gosh_printf("CHDIR successful\n");
 	else
 	{
-		printf("CHDIR failed. Errno: %d\n", 
+		gosh_printf("CHDIR failed. Errno: %i\n", 
 			errno == ENOENT ? 99 : -111);
 	}
 	if (setenv("PWD", full_path, 1) == 0)
-		printf("SETVAL of PWD to full_path SUCCESSFUL\n");
+		gosh_printf("SETVAL of PWD to full_path SUCCESSFUL\n");
 	else
-		printf("SETVAL of PWD to full_path FAILED\n\n");
+		gosh_printf("SETVAL of PWD to full_path FAILED\n\n");
 	return (retval);
 }

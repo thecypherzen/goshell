@@ -1,5 +1,5 @@
 #include "gosh.h"
-/*
+/**
  * gcmd_exec - handles command selection and execution
  * @agv: arguments vector
  * Return: 0 on success, -1 on error
@@ -7,13 +7,10 @@
 int gcmd_exec(char **agv)
 {
 	char *s_cmds[] = 
-	{ "exit", "env", "setenv", "unsetenv", "cd", "echo", 
-	  "cat", "touch", "alias", NULL
-	}, *full_path, *comment_pos = strchr(*agv, '#');
+	{"exit", "env", "setenv", "unsetenv", "cd", "echo", 
+	  "cat", "touch", "alias", NULL}, *full_path;
 	int j = 0, i = 0, match = 0;
 
-	if (comment_pos != NULL)
-		*comment_pos = '\0';
 	if (!(**agv))
 		return (-1);
 	do
@@ -21,7 +18,7 @@ int gcmd_exec(char **agv)
 		j = 0;
 		while (s_cmds[j++])
 		{
-			if (strcmp(agv[i], s_cmds[j - 1]) == 0)
+			if (s_cmp(agv[i], s_cmds[j - 1]) == 0)
 			{
 				match = 1;
 				break;
@@ -44,8 +41,6 @@ int gcmd_exec(char **agv)
 			case 4:
 				return (_unsetenv_exec(agv));
 			case 5: 
-				printf("gcmd_exec: agv[1]: %s\n",
-					agv[1]);
 				return (ch_dir(agv[1]));
 			case 6:
 			        return (echo_echo(agv));
@@ -54,7 +49,6 @@ int gcmd_exec(char **agv)
 			case 8:
 			        return (touch_touch(agv));
 			case 9:
-				printf("alias section..\n");
 				return (alias_handler(agv));
 			default:
 				return (-1);
@@ -62,7 +56,7 @@ int gcmd_exec(char **agv)
 	}
 	else
 	{
-		/* Ex ecute other commands */
+		/* Execute other commands */
 		full_path = get_gcmdpath(agv);
 		if (!full_path)
 		{

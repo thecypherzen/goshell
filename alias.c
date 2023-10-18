@@ -13,17 +13,23 @@ int gosh_print_aliases(void)
 {
         for (i = 0; i < alias_count; i++)
         {
-                gosh_printf("alias %s='%s'\n", alias_list[i].a_name, alias_list[i].a_value);
+                gosh_printf("alias %s='%s'\n", 
+                        alias_list[i].a_name, 
+                        alias_list[i].a_value);
         }
         return (0);
 }
 
-/* Function to find an alias by name */
+/**
+* gosh_find_alias - Function to find an alias by name
+* Return: alias_list of data type struct alias.
+*/
+
 struct alias *gosh_find_alias(char *name)
 {
         for (i = 0; i < alias_count; i++) 
         {
-                if (strcmp(name, alias_list[i].a_name) == 0)
+                if (s_cmp(name, alias_list[i].a_name) == 0)
                 {
                        return (&alias_list[i]);
                 }
@@ -31,7 +37,10 @@ struct alias *gosh_find_alias(char *name)
         return (NULL);
 }
 
-/* Function to define or update an alias */
+/**
+* gosh_define_alias - Function to define or update an alias
+* Return: alias_list of data type struct alias.
+*/
 int gosh_define_alias(char *name, char *value)
 {
         struct alias *existing = gosh_find_alias(name);
@@ -39,18 +48,18 @@ int gosh_define_alias(char *name, char *value)
         if (existing)
         {
                 /* Update an existing alias */
-                strncpy(existing->a_value, value, MAX_A_VALUE);
+                s_ncpy(existing->a_value, value, MAX_A_VALUE);
         }
         else if (alias_count < MAX_A_VAR_SIZE)
         {
                 /*Define a new alias */
-                strncpy(alias_list[alias_count].a_name, name, MAX_A_NAME);
-                strncpy(alias_list[alias_count].a_value, value, MAX_A_VALUE);
+                s_ncpy(alias_list[alias_count].a_name, name, MAX_A_NAME);
+                s_ncpy(alias_list[alias_count].a_value, value, MAX_A_VALUE);
                 alias_count++;
         }
         else
         {
-                printf("Alias limit exceeded. Unable to define alias.\n");
+                gosh_printf("Alias limit exceeded. Unable to define alias.\n");
                 return (-1);
         }
         return (0);

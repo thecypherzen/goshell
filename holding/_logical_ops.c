@@ -17,18 +17,18 @@ int _logical_ops(char *comd, char **currcmd)
 	n = 0;
         while ((token = tokensv[n]))
 	{
-                if (strcmp(token, "&&") == 0 || strcmp(token, "||") == 0)
+                if (s_cmp(token, "&&") == 0 || s_cmp(token, "||") == 0)
                 {
                         if (prev_command != NULL)
                         {
-				cmdlinev = get_args(prev_command);
+				cmdlinev = make_vectr(prev_command, " ");
 				if (!cmdlinev)
 					return (-1);
 				*currcmd = cmdlinev[0];
                                 ret = gcmd_exec(cmdlinev);
 			}
-			if ((strcmp(token, "&&") == 0 && ret != 0) 
-				|| (strcmp(token, "||") == 0 
+			if ((s_cmp(token, "&&") == 0 && ret != 0) 
+				|| (s_cmp(token, "||") == 0 
 				&& ret == 0))
 			{
 				prev_command = NULL;
@@ -46,9 +46,9 @@ int _logical_ops(char *comd, char **currcmd)
 				ret = s_len(prev_command) + 
 					s_len(token) + 2;
                                 temp = (char *)malloc(ret);
-                                strcpy(temp, prev_command);
-				strcat(temp, " "), free(prev_command);
-                                strcat(temp, token), prev_command = NULL;
+                                s_copy(temp, prev_command);
+				s_cat(temp, " "), free(prev_command);
+                                s_cat(temp, token), prev_command = NULL;
                                 prev_command = s_dup(temp), free(temp);
                         }
 			else
@@ -58,7 +58,7 @@ int _logical_ops(char *comd, char **currcmd)
         }
         if (prev_command && !token)
         {
-		cmdlinev = get_args(prev_command);
+		cmdlinev = make_vectr(prev_command, " .");
 		*currcmd = cmdlinev[0], ret = gcmd_exec(cmdlinev);
         }
         return (ret);

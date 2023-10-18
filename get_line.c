@@ -2,6 +2,12 @@
 static char *ibuff;
 static ssize_t tot_bytes_read, bytes_read = 0, offset = 0;
 
+/**
+* get_line - a custom get_line function
+* @line: address of the input from standard in or stream
+* @sz: address of the variable storing the size of buf
+* Return: number of bytes read or -1 on error
+*/
 
 ssize_t get_line(char **line, size_t *sz, FILE *stream)
 {

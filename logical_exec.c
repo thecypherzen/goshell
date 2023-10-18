@@ -23,18 +23,18 @@ int logical_exec(char *gcmdln)
 		}
 		cols++, i = 0;
 		cmdv = malloc(sizeof(char *) * (cols + 1));
-		cmdv[cols] = NULL, cmdline = strtok(cmdstr, ";");
+		cmdv[cols] = NULL, cmdline = s_tok(cmdstr, ";");
 		if (cmdline)
 		{
 			while (cols > 0) 
 			{
 				cmdv[i] = cmdline;
-				cmdline = strtok(NULL, ";");
+				cmdline = s_tok(NULL, ";");
 				cols--, i++;
 			}
 		}
 		else
-			cmdv[0] = strdup(cmdstr);
+			cmdv[0] = s_dup(cmdstr);
 		for (i = 0; cmdv[i]; i++)
 		{
 			retval = _logical_ops(cmdv[i], &currcmd);

@@ -12,13 +12,9 @@ int logical_exec(char *gcmdln)
 	int retval, syntax_err;
 	extern int func_ret;
 
-	printf(".........inside logical_exec func.............\n");
-	printf("gcmdln: %s\n", gcmdln);
 	syntax_err = _syntax_checkr(&cmdstr, gcmdln);
-	printf("sytax err: %d\n", syntax_err);
 	if (!syntax_err)
 	{
-		printf("[logical exec]: no syntax error found\n");
 		while (cmdstr[i])
 		{
 			if (cmdstr[i] == ';')
@@ -26,40 +22,28 @@ int logical_exec(char *gcmdln)
 			i++;
 		}
 		cols++, i = 0;
-		printf("about to malloc\n");
 		cmdv = malloc(sizeof(char *) * (cols + 1));
-		printf("malloc successful\n");
-		cmdv[cols] = NULL, cmdline = strtok(cmdstr, ";");
+		cmdv[cols] = NULL, cmdline = s_tok(cmdstr, ";");
 		if (cmdline)
 		{
 			while (cols > 0) 
 			{
 				cmdv[i] = cmdline;
-				cmdline = strtok(NULL, ";");
+				cmdline = s_tok(NULL, ";");
 				cols--, i++;
 			}
 		}
 		else
-		{
-			cmdv[0] = strdup(cmdstr);
-			/*free(cmdstr); */
-		}
-		/*printf("\n*** commands entered ***\n"); */
+			cmdv[0] = s_dup(cmdstr);
 		for (i = 0; cmdv[i]; i++)
 		{
-			printf("[curcmd]:\n%s\n", cmdv[i]);
 			retval = _logical_ops(cmdv[i], &currcmd);
 			func_ret = retval;
-			printf("retval: %d\n", retval);
 			if (retval != 0)
 				perror(currcmd);
 		} 
-		printf("\n");
 		return (0);
 	}
 	else
-	{
-		printf("Some error occured\n");
 		return (-1);
-	}
 } 

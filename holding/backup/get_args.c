@@ -42,7 +42,7 @@ int main(void)
 		size_t gsize = 0;
 		int func_ret;
 
-		printf("\n.........main: reading command.....\n");
+		gosh_printf("\n.........main: reading command.....\n");
 		write_res = write(1, gprompt, strlen(gprompt));
 		if (write_res < 0)
 			return (handle_err("Write Failed", 1));
@@ -53,36 +53,37 @@ int main(void)
 		{
 			gcmdln[ret - 1] = '\0';
 			func_ret = islogical_checkr(gcmdln);
+			gosh_printf("is logical:%d\n", func_ret);
 			if (func_ret < 0) /* gcmdln is null */
 			{
-				printf("\n*** error from MAIN ***\n");
+				gosh_printf("\n*** error from MAIN ***\n");
 				perror(gcmdln);
-				printf("************************\n");
+				gosh_printf("************************\n");
 			}
 			else if (func_ret == 0) /* for gcmd_exec */
 			{
 				agv = get_args(gcmdln); /* remember to free */
 				if (!agv)
 				{
-					printf("\n*** error from MAIN ***\n");
+					gosh_printf("\n*** error from MAIN ***\n");
 					perror(gcmdln);
-					printf("************************\n");
+					gosh_printf("************************\n");
 				}
 				else
 				{
 					func_ret  = gcmd_exec(agv);
 					if (func_ret < 0)
 					{
-						printf("\n*** error from MAIN ***\n");
+						gosh_printf("\n*** error from MAIN ***\n");
 						perror(agv[0]);
-						printf("************************\n");
+						gosh_printf("************************\n");
 					}
 				}
 			}
 			else
 			{
 				func_ret = logical_exec(gcmdln);
-				printf("logical_exec ret: %d\n", func_ret);
+				gosh_printf("logical_exec ret: %d\n", func_ret);
 				if (func_ret < 0)
 				{
 					/* err occured */

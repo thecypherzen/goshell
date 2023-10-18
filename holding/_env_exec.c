@@ -1,7 +1,8 @@
 #include "gosh.h"
-/*
- * exec_env - executes the env command
- * return: total chars printed.
+/**
+ * _env_exec - executes the env command
+ * @agv: the arguments vector
+ * Return: -1 on error, 0 on success.
 */
 
 int _env_exec(char **agv)

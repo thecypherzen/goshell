@@ -20,7 +20,7 @@ char *_gcmdpath_expandr(char *rel_path)
 	{ 
 		if (rel_path[1] == '.' && (rel_path[2] == '/'))
 		{
-			temp = _getparent_path(getenv("PWD"));
+			temp = _getparent_path(_get_env("PWD"));
 			if (!temp)
 				return (NULL); /* ../bin/ls  / */
 			return (abs_path = _getfull_path(rel_path, 
@@ -28,7 +28,7 @@ char *_gcmdpath_expandr(char *rel_path)
 		}
 		else if (rel_path[1] == '/')
 			return (abs_path = _getfull_path(rel_path, 
-				getenv("PWD"), 1));
+				_get_env("PWD"), 1));
 		return (abs_path = NULL);
 	}
 	else if (i == 1)
@@ -37,7 +37,7 @@ char *_gcmdpath_expandr(char *rel_path)
 	{
 		if (rel_path[1] == '/')
 			return (abs_path = _getfull_path(rel_path,
-				getenv("HOME"), 1));
+				_get_env("HOME"), 1));
 		return (abs_path = NULL);
 	}
 	return (abs_path);

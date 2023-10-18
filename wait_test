@@ -6,8 +6,8 @@ int main(void)
 {
 	int i = 0;
 	char name[] = "The Fine #Man Kelv!";
-	printf("name before: %s\n", name);
-	char *ptr = strchr(name, '#');
+	gosh_printf("name before: %s\n", name);
+	char *ptr = s_chr(name, '#');
 	if (ptr)
 		*ptr = '\0';
 	printf("name after: %s\n", name);

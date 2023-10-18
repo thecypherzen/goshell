@@ -1,5 +1,11 @@
 #include "gosh.h"
 
+/**
+* get_gcmdpath - generates and expands the absolute path to cmd arg.
+* @agv: the executable or built in cmd passed by user
+* Return: returns the path generated
+*/
+
 char  *get_gcmdpath(char **agv)
 {
 	char c = agv[0][0], *abs_path = NULL, *temp;

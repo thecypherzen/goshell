@@ -51,6 +51,11 @@ struct alias
 /* External Variables */
 extern int errno;
 extern char **environ;
+int gosh_atoi(char *s);
+int s_ncmp(char *s1, char *s2, size_t n);
+int gosh_print_dec_number(va_list djlist2);
+char *s_ncpy(char *dest, char *src, int n);
+char *s_ncat(char *dest, char *src, int n);
 int gosh_printf(const char *format, ...);
 int gosh_print_int_number(va_list djlist2);
 int gosh_print_string(va_list djlist2);
@@ -68,6 +73,7 @@ int s_cmp(char *s1, char *s2);
 char *s_copy(char *dest, char *src);
 int s_write(char c);
 void _exit_exec(char **agv);
+char *_get_env(char *envar);
 int _env_exec(char **agv);
 int _setenv_exec(char **agv);
 int _unsetenv_exec(char **agv);
@@ -80,7 +86,7 @@ int gcmd_fork(char *full_path, char **agv);
 int _chdir_helper(char *full_path, char *cwd);
 int ch_dir(char *dest);
 int logical_exec(char *comd);
-int islogical_checkr(char *cmdline);
+int islogical_checkr(char **cmdline);
 int _slops_comp(char *s_lops, char a, char b);
 int _syntax_checkr(char **cmdstr, char *gcmdln);
 int _logical_ops(char *comd, char **currcmd);
@@ -96,4 +102,5 @@ int alias_handler(char **agv);
 struct alias *gosh_find_alias(char *name);
 int gosh_define_alias(char *name, char *value);
 int gosh_print_aliases(void);
+char *_dequoter(char *strval);
 #endif

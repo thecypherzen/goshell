@@ -1,6 +1,7 @@
 #include "gosh.h"
 /**
  * s_lops_comp - compares if two characters equate to a logical op
+ * @s_lops: the s logical operator
  * @a: the first char
  * @b: the second char
  * Return: -1 if syntax error is noticed.

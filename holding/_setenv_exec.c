@@ -8,7 +8,7 @@
 int _setenv_exec(char **agv)
 {
 	char *name = agv[1], *val = agv[2];
-	int flag = agv[3] ? atoi(agv[3]) : 0;
+	int flag = agv[3] ? gosh_atoi(agv[3]) : 0;
 
 	if (!name || !val)
 		return (-1);

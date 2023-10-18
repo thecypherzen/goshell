@@ -25,7 +25,7 @@ int throw_syntax_err(int num, ...)
 	err_token[i] = '\0';
 	va_end(chars);
 
-	printf("-gosh: syntax error near unexpected token `%s'\n",
+	gosh_printf("-gosh: syntax error near unexpected token `%s'\n",
 		err_token);
 	return (-1);
 }
