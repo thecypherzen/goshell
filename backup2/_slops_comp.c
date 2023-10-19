@@ -1,6 +1,6 @@
 #include "gosh.h"
 /**
- * s_lops_comp - compares if two characters equate to a logical op
+ * _slops_comp - compares if two characters equate to a logical op
  * @s_lops: the s logical operator
  * @a: the first char
  * @b: the second char
@@ -10,7 +10,7 @@
 int _slops_comp(char *s_lops, char a, char b)
 {
 	int a_match = 0, b_match = 0, i = 0;
-	
+
 	if (a == b)
 	{
 		while (s_lops[i])

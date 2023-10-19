@@ -17,7 +17,7 @@ int throw_syntax_err(int num, ...)
 	if (!err_token)
 		return (-2);
 	va_start(chars, num);
-	while(i < num)
+	while (i < num)
 	{
 		err_token[i] = va_arg(chars, int);
 		i++;
@@ -26,6 +26,6 @@ int throw_syntax_err(int num, ...)
 	va_end(chars);
 
 	gosh_printf("-gosh: syntax error near unexpected token `%s'\n",
-		err_token);
+			err_token);
 	return (-1);
 }

@@ -2,7 +2,7 @@
 
 /**
  * gosh_print_int_number - a function that prints integers
- * @num: number passed as argument
+ * @djlist2: number passed as argument
  * Return:  count of printed integers
  */
 

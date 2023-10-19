@@ -11,7 +11,7 @@ char *_dequoter(char *strval)
 	ssize_t n;
 
 	if ((*strval == a && strval[len - 1]  != a) ||
-		(*strval == b && strval[len - 1] != b))
+			(*strval == b && strval[len - 1] != b))
 	{
 		n = write(1, "> ", 2);
 		if (n <= 0)
@@ -21,8 +21,8 @@ char *_dequoter(char *strval)
 			return (NULL);
 		sz = n + len;
 	}
-	if ((*strval = a && strval[len - 1] == a) ||
-		(*strval = b && strval[len - 1] == b))
+	if ((*strval == a && strval[len - 1] == a) ||
+			(*strval == b && strval[len - 1] == b))
 	{
 		newstr = malloc(sz ? sz + len : len);
 		if (!newstr)
@@ -34,6 +34,6 @@ char *_dequoter(char *strval)
 		else
 			newstr[i - 1] = '\0';
 		return (newstr);
-	} 
+	}
 	return (NULL);
 }

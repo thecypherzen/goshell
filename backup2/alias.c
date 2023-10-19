@@ -13,8 +13,8 @@ int gosh_print_aliases(void)
 {
         for (i = 0; i < alias_count; i++)
         {
-                gosh_printf("alias %s='%s'\n", 
-                        alias_list[i].a_name, 
+                gosh_printf("alias %s='%s'\n",
+                        alias_list[i].a_name,
                         alias_list[i].a_value);
         }
         return (0);
@@ -22,12 +22,13 @@ int gosh_print_aliases(void)
 
 /**
 * gosh_find_alias - Function to find an alias by name
+* @name: name searched
 * Return: alias_list of data type struct alias.
 */
 
 struct alias *gosh_find_alias(char *name)
 {
-        for (i = 0; i < alias_count; i++) 
+        for (i = 0; i < alias_count; i++)
         {
                 if (s_cmp(name, alias_list[i].a_name) == 0)
                 {
@@ -39,6 +40,8 @@ struct alias *gosh_find_alias(char *name)
 
 /**
 * gosh_define_alias - Function to define or update an alias
+* @name: name passed
+* @value: value passed
 * Return: alias_list of data type struct alias.
 */
 int gosh_define_alias(char *name, char *value)

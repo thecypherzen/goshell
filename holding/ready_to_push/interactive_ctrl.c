@@ -1,0 +1,53 @@
+#include "gosh.h"
+/**
+ * main - Entry point
+ */
+int func_ret = 10;
+int main(void)
+{
+	char **agv = NULL, *gcmdln = NULL, *gprompt = "($) ";
+	ssize_t ret, write_res;
+	size_t gsize = 0;
+	int func_ret;
+
+	while  (1)
+	{
+		write_res = write(1, gprompt, s_len(gprompt));
+		if (write_res < 0)
+			return (handle_err("Write Failed", 1));
+
+		ret = getline(&gcmdln, &gsize, stdin);
+		/* get arguments if res is valid */
+		if (ret > 0 && gcmdln[0] != '\n')
+		{
+			gcmdln[ret - 1] = '\0';
+			func_ret = islogical_checkr(&gcmdln);
+			printf("is logical:%i\n", func_ret);
+			if (func_ret < 0) /* gcmdln is null */
+				perror(gcmdln);
+			else if (func_ret == 0) /* for gcmd_exec */
+			{
+				agv = make_vectr(gcmdln, " ");
+				if (!agv)
+					perror(gcmdln);
+				else
+				{
+					func_ret  = gcmd_exec(agv, gcmdln);
+					if (func_ret < 0)
+						perror(agv[0]);
+					free_vectr(agv), free(agv);
+				}
+			}
+			else
+				func_ret = logical_exec(gcmdln);
+		}
+		else if (ret <= 0)
+		{
+			s_write('\n');
+			break;
+		}
+	}
+	if (gcmdln)
+		free(gcmdln);
+	return (0);
+}

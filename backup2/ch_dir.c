@@ -1,20 +1,21 @@
 #include "gosh.h"
-/*
+/**
  * ch_dir - changes cwd to another location
  * @dest: the absolute path to the destination
  * Return: path to the new location. NULL if failed.
  */
 
+int ch_dir(char *dest);
+
 int ch_dir(char *dest)
 {
 	char *cwd = getcwd(NULL, 0), *full_path = NULL,
-	rel_ids[] = {'.', '/', '~', ' ', '-', '\0'},
-	c = dest ? *dest : '~';
+		 rel_ids[] = {'.', '/', '~', ' ', '-', '\0'},
+		 c = dest ? *dest : '~';
 	int i = 0;
-	
+
 	if ((c >= 65 && c <= 90) || (c >= 97 && c <= 122))
 	{
-		gosh_printf("\nAlpha value detected: %c\n", c);
 		full_path = _getfull_path(dest, cwd, 1);
 		return (_chdir_helper(full_path, cwd));
 	}
@@ -25,11 +26,10 @@ int ch_dir(char *dest)
 		i++;
 	}
 	if (!i)
-	{ 
-		if ((dest[1] == '.' && dest[2] == '/') || (dest[1] == '.' 
-			&& (dest[2] == '\0' || dest[2] == ' ')))
+	{
+		if ((dest[1] == '.' && dest[2] == '/') || (dest[1] == '.'
+					&& (dest[2] == '\0' || dest[2] == ' ')))
 		{
-			gosh_printf("new dest : %s\n", dest);
 			full_path = _getparent_path(_get_env("PWD"));
 			return (_chdir_helper(full_path, cwd));
 		}
@@ -45,8 +45,8 @@ int ch_dir(char *dest)
 		full_path = _getfull_path(dest, "/", 1);
 		return (_chdir_helper(full_path, cwd));
 	}
-	else if (i == 2 || i == 3 || (dest[0] == ' ' 
-		|| dest[0] == '\0'))
+	else if (i == 2 || i == 3 || (dest[0] == ' '
+				|| dest[0] == '\0'))
 		return (_chdir_helper(_get_env("HOME"), cwd));
 	else if (i == 4 && (dest[1] == ' ' || dest[1] == '\0'))
 	{

@@ -1,7 +1,7 @@
 #include "gosh.h"
 
 /**
- * islogical_checkr - checks if a command line has logical 
+ * islogical_checkr - checks if a command line has logical
  * operators
  * @cmdline: the command line
  * Return: 1 if there is at least one logical operator in command
@@ -14,19 +14,16 @@ int islogical_checkr(char **cmdline)
 
 	if (!cmdline || !(*cmdline))
 		return (-1);
-	
-	printf("...is logical checker func.....\n");
-	printf("cmdline: Before %s\n", *cmdline);
+
 	temp = s_chr(*cmdline, '#');
 	if (temp)
 		*temp = '\0';
-	printf("cmdline after: %s\n", *cmdline);
-	
-	while ((*cmdline)[i] != '\0') 
+
+	while ((*cmdline)[i] != '\0')
 	{
-		if ((*cmdline)[i] == '|' || 
-			(*cmdline)[i] == '&' || 
-			(*cmdline)[i] == ';')
+		if ((*cmdline)[i] == '|' ||
+				(*cmdline)[i] == '&' ||
+				(*cmdline)[i] == ';')
 		{
 			is_logical = 1;
 			break;

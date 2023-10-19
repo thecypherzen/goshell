@@ -1,13 +1,12 @@
 #include "gosh.h"
 
-/**  
+/**
  * _get_env - a custom getenv function
- * @agv: the environ variable passed as argument
- * Return: a char pointer to the address of value in variable 
+ * @envar: the environ variable passed as argument
+ * Return: a char pointer to the address of value in variable
  */
 char *_get_env(char *envar)
 {
-	/* get the length of variable passed*/
 	int i = 0;
 	char **env_address = environ, *curr_var, *var_name;
 

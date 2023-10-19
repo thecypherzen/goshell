@@ -1,7 +1,8 @@
 #include "gosh.h"
 
 /**
- * make_vectr: makes a vector from a string based usiing a delimiter
+ * make_vectr - makes a vector from a string
+ * based usiing a delimiter
  * @inputstr: the string
  * @delim: the delimiting string
  * Return: ptr to the vecor on success.
@@ -11,10 +12,10 @@ char **make_vectr(char *inputstr, char *delim)
 {
 	char **vectr, *str, *token;
 	int n = 0, i = 0;
-	
+
 	if (!inputstr)
 		return (NULL);
-	
+
 	str = s_dup(inputstr);
 	while (str[i++])
 	{

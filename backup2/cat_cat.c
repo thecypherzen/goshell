@@ -10,11 +10,11 @@ int cat_cat(char **agv)
 	size_t sz = 128;
 	ssize_t bytes_read, ret_val = 0;
 	int fd;
-	
+
 	buffer = malloc(sz);
 	if (!buffer)
 		return (-1);
-	
+
 	fd = open(agv[1], O_RDONLY);
 	if (fd == -1)
 	{
@@ -28,7 +28,7 @@ int cat_cat(char **agv)
 		if (ret_val < 0)
 			break;
 		bytes_read = read(fd, buffer, sz);
-        }
+	}
 	s_write('\n');
 	free(buffer), close(fd);
 	if (bytes_read < 0 || ret_val < 0)

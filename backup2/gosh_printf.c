@@ -11,7 +11,7 @@ int gosh_printf(const char *format, ...)
 		{"%s", gosh_print_string}, {"%c", gosh_print_char},
 		{"%i", gosh_print_int_number},
 		{"%u", gosh_print_unint_number}, {"%d", gosh_print_dec_number}
-		};
+	};
 
 	va_list djlist2;
 	int j = 0, i, _printflen = 0;
@@ -25,7 +25,8 @@ Here:
 		i = 3;
 		while (i >= 0)
 		{
-			if (gosh_table[i].id[0] == format[j] && gosh_table[i].id[1] == format[j + 1])
+			if (gosh_table[i].id[0] == format[j] &&
+					gosh_table[i].id[1] == format[j + 1])
 			{
 				_printflen += gosh_table[i].f(djlist2);
 				j = j + 2;

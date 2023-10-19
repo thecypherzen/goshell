@@ -2,19 +2,21 @@
 /**
  * gcmd_exec - handles command selection and execution
  * @agv: arguments vector
+ * @func_ret: return value tracker in main
  * Return: 0 on success, -1 on error
-*/
-int gcmd_exec(char **agv)
+ */
+
+int gcmd_exec(char **agv, int *func_ret);
+
+int gcmd_exec(char **agv, int *func_ret)
 {
-	char *s_cmds[] = 
-	{"exit", "env", "setenv", "unsetenv", "cd", "echo", 
-	  "cat", "touch", "alias", NULL}, *full_path;
+	char *s_cmds[] = {"exit", "env", "setenv", "unsetenv", "cd",
+		"echo", "cat", "touch", "alias", NULL}, *full_path;
 	int j = 0, i = 0, match = 0;
 
 	if (!(**agv))
 		return (-1);
-	do
-	{
+	do {
 		j = 0;
 		while (s_cmds[j++])
 		{
@@ -40,14 +42,14 @@ int gcmd_exec(char **agv)
 				return (_setenv_exec(agv));
 			case 4:
 				return (_unsetenv_exec(agv));
-			case 5: 
+			case 5:
 				return (ch_dir(agv[1]));
 			case 6:
-			        return (echo_echo(agv));
+				return (echo_echo(agv, func_ret));
 			case 7:
-			        return (cat_cat(agv));
+				return (cat_cat(agv));
 			case 8:
-			        return (touch_touch(agv));
+				return (touch_touch(agv));
 			case 9:
 				return (alias_handler(agv));
 			default:

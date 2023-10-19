@@ -1,21 +1,21 @@
 #include "gosh.h"
 /**
-  * s_len - finds length of string
-* @str: string
-* Return: length of string
-*/
+ * s_len - finds length of string
+ * @str: string
+ * Return: length of string
+ */
 
 size_t s_len(const char *str)
 {
-        size_t length = 0;
+	size_t length = 0;
 
-        if (str == NULL)
-                return (0);
+	if (str == NULL)
+		return (0);
 
-        while (str[length] != '\0')
-        {
-                length++;
-        }
+	while (str[length] != '\0')
+	{
+		length++;
+	}
 
-        return (length);
+	return (length);
 }
